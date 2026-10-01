@@ -37,10 +37,7 @@
     </script>
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; }
-        .custom-shadow { box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.1), 0 8px 10px -6px rgba(2, 132, 199, 0.05); }
         .hero-bg { background: linear-gradient(135deg, #e0f2fe 0%, #ffffff 100%); }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
@@ -48,7 +45,7 @@
     <!-- HEADER -->
     <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <!-- Generic Logo without Brand Name -->
+            <!-- Generic Logo -->
             <a href="#" onclick="showHomeView()" class="flex items-center gap-3 group">
                 <div class="w-12 h-12 bg-skybrand-500 rounded-xl flex items-center justify-center text-white shadow-md shadow-skybrand-500/20 group-hover:bg-skybrand-600 transition">
                     <i class="fa-solid fa-stethoscope text-2xl"></i>
@@ -61,33 +58,99 @@
                 </div>
             </a>
 
-            <!-- Navigation Actions -->
-            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
-                <a href="#specializzazioni" class="hover:text-skybrand-500 transition">Specializzazioni</a>
-                <a href="#capoluoghi" class="hover:text-skybrand-500 transition">Tutti i Capoluoghi</a>
-                <a href="#" class="hover:text-skybrand-500 transition">Sei un Medico?</a>
-            </nav>
+            <!-- Navigation Actions / Right Menu -->
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-700">
+                <a href="#" class="hover:text-skybrand-600 transition">Trattamento dei dati</a>
+                <a href="#" class="hover:text-skybrand-600 transition">Chiedi al Dottore</a>
 
-            <!-- User Auth Buttons -->
-            <div class="flex items-center gap-3">
-                <button class="px-4 py-2.5 text-sm font-semibold text-slate-700 hover:text-skybrand-600 rounded-lg hover:bg-skybrand-50 transition">
-                    Accedi
-                </button>
-                <button class="px-5 py-2.5 text-sm font-semibold text-white bg-skybrand-500 hover:bg-skybrand-600 rounded-lg shadow-sm shadow-skybrand-500/30 transition">
-                    Registrati
-                </button>
-            </div>
+                <!-- Dropdown Registrati gratis -->
+                <div class="relative inline-block text-left" id="register-dropdown-container">
+                    <button onclick="toggleDropdown('register-dropdown')" class="flex items-center gap-1 hover:text-skybrand-600 transition font-medium focus:outline-none py-2">
+                        <span>Registrati gratis</span>
+                        <i class="fa-solid fa-chevron-down text-xs ml-0.5"></i>
+                    </button>
+                    <div id="register-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-slate-200 py-2 z-50">
+                        <a href="#" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-skybrand-50 hover:text-skybrand-600 transition">
+                            <i class="fa-solid fa-user mr-2 text-skybrand-500"></i> Come Paziente
+                        </a>
+                        <a href="#" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-skybrand-50 hover:text-skybrand-600 transition">
+                            <i class="fa-solid fa-user-doctor mr-2 text-skybrand-500"></i> Come Dottore / MMG
+                        </a>
+                        <a href="#" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-skybrand-50 hover:text-skybrand-600 transition">
+                            <i class="fa-solid fa-hospital mr-2 text-skybrand-500"></i> Come Centro Medico
+                        </a>
+                    </div>
+                </div>
+                <div class="w-full max-w-lg mx-auto mb-8 flex justify-center">
+    <svg viewBox="0 0 500 300" class="w-full h-auto drop-shadow-md" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <linearGradient id="skyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#38bdf8"/>
+                <stop offset="100%" stop-color="#0284c7"/>
+            </linearGradient>
+            <linearGradient id="bgBlob" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#e0f2fe"/>
+                <stop offset="100%" stop-color="#bae6fd"/>
+            </linearGradient>
+        </defs>
+
+        <!-- Sfondo morbido (Blob) -->
+        <path d="M420,170Q410,240,340,260Q270,280,190,260Q110,240,90,170Q70,100,140,70Q210,40,300,50Q390,60,420,170Z" fill="url(#bgBlob)" opacity="0.7" />
+
+        <!-- Icona Medico / Stetoscopio artistico centrale -->
+        <circle cx="250" cy="120" r="45" fill="white" class="shadow-lg" />
+        <path d="M250,90 A 30 30 0 0 1 280,120 A 30 30 0 0 1 250,150 A 30 30 0 0 1 220,120 A 30 30 0 0 1 250,90 Z" fill="none" stroke="url(#skyGrad)" stroke-width="6" stroke-linecap="round"/>
+        <path d="M235,120 L265,120 M250,105 L250,135" stroke="#0284c7" stroke-width="5" stroke-linecap="round"/>
+
+        <!-- Figure stilizzate (Paziente & Medico) -->
+        <g transform="translate(110, 100)">
+            <circle cx="40" cy="30" r="16" fill="#0369a1"/>
+            <path d="M20,75 C20,50 60,50 60,75 Z" fill="#38bdf8"/>
+        </g>
+
+        <g transform="translate(290, 100)">
+            <circle cx="40" cy="30" r="16" fill="#075985"/>
+            <path d="M20,75 C20,50 60,50 60,75 Z" fill="#0284c7"/>
+        </g>
+
+        <!-- Elementi di cura / Cuore e Plus -->
+        <path d="M250,210 C250,210 220,180 220,165 C220,155 230,150 240,157 C250,165 250,165 250,165 C250,165 250,165 260,157 C270,150 280,155 280,165 C280,180 250,210 250,210 Z" fill="#ef4444" opacity="0.85"/>
+    </svg>
+</div>
+
+                <a href="#" class="hover:text-skybrand-600 transition font-medium">Login</a>
+
+                <!-- Dropdown Sei un Professionista sanitario? -->
+                <div class="relative inline-block text-left" id="pro-dropdown-container">
+                    <button onclick="toggleDropdown('pro-dropdown')" class="flex items-center gap-1.5 px-4 py-2 rounded-full border border-slate-300 bg-white hover:border-skybrand-400 text-slate-800 transition font-medium text-sm focus:outline-none shadow-sm">
+                        <span>Sei un Professionista sanitario?</span>
+                        <i class="fa-solid fa-chevron-down text-xs text-slate-500"></i>
+                    </button>
+                    <div id="pro-dropdown" class="hidden absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-slate-200 py-2 z-50">
+                        <a href="#" class="block px-5 py-3 text-sm text-slate-800 hover:bg-skybrand-50 hover:text-skybrand-600 transition font-normal">
+                            Registrati gratis
+                        </a>
+                        <a href="#" class="block px-5 py-3 text-sm text-slate-800 hover:bg-skybrand-50 hover:text-skybrand-600 transition font-normal">
+                            Area professionisti sanitari
+                        </a>
+                        <a href="#" class="flex items-center justify-between px-5 py-3 text-sm text-slate-800 hover:bg-skybrand-50 hover:text-skybrand-600 transition font-normal">
+                            <span>Noa Notes</span>
+                            <span class="bg-skybrand-100 text-skybrand-700 text-[10px] font-bold px-2 py-0.5 rounded-md uppercase">IA</span>
+                        </a>
+                    </div>
+                </div>
+            </nav>
         </div>
     </header>
 
     <!-- MAIN CONTENT CONTAINER -->
-    <main class="flex-grow">
+    <main class="flex-grow flex flex-col justify-center">
         
         <!-- HOME VIEW -->
-        <div id="home-view">
+        <div id="home-view" class="pb-16">
             <!-- HERO SECTION -->
-            <section class="hero-bg pt-12 pb-20 px-4 sm:px-6 lg:px-8 border-b border-skybrand-100">
-                <div class="max-w-5xl mx-auto text-center">
+            <section class="hero-bg pt-16 pb-20 px-4 sm:px-6 lg:px-8 border-b border-skybrand-100">
+                <div class="max-w-4xl mx-auto text-center">
                     <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-4">
                         Prenota la tua visita medica online
                     </h1>
@@ -134,68 +197,172 @@
                             </div>
                         </form>
                     </div>
+                </div>
+            </section>
 
-                    <!-- Quick Tags -->
-                    <div class="mt-6 flex flex-wrap items-center justify-center gap-2 text-xs text-slate-500">
-                        <span class="font-medium text-slate-400">Ricerche frequenti:</span>
-                        <button onclick="quickSearch('Ginecologo', '')" class="bg-white/80 hover:bg-skybrand-50 hover:text-skybrand-600 border border-slate-200 px-3 py-1 rounded-full transition">Ginecologo</button>
-                        <button onclick="quickSearch('Dermatologo', '')" class="bg-white/80 hover:bg-skybrand-50 hover:text-skybrand-600 border border-slate-200 px-3 py-1 rounded-full transition">Dermatologo</button>
-                        <button onclick="quickSearch('Psicologo', '')" class="bg-white/80 hover:bg-skybrand-50 hover:text-skybrand-600 border border-slate-200 px-3 py-1 rounded-full transition">Psicologo</button>
-                        <button onclick="quickSearch('', 'Roma')" class="bg-white/80 hover:bg-skybrand-50 hover:text-skybrand-600 border border-slate-200 px-3 py-1 rounded-full transition">Roma</button>
-                        <button onclick="quickSearch('', 'Milano')" class="bg-white/80 hover:bg-skybrand-50 hover:text-skybrand-600 border border-slate-200 px-3 py-1 rounded-full transition">Milano</button>
+            <!-- SECTION 1: QUICK LINKS LIST (SPECIALTIES & PROCEDURES) -->
+            <section class="py-12 bg-slate-50/50 border-b border-slate-200">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+                    <!-- Specialties list row -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
+                        <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-slate-600">
+                            <button onclick="quickSearch('Medico Di Medicina Generale', '')" class="hover:text-skybrand-600 hover:underline transition">Medico di base</button>
+                            <button onclick="quickSearch('Ginecologo', '')" class="hover:text-skybrand-600 hover:underline transition">Ginecologo</button>
+                            <button onclick="quickSearch('Ortopedico', '')" class="hover:text-skybrand-600 hover:underline transition">Ortopedico</button>
+                            <button onclick="quickSearch('Dermatologo', '')" class="hover:text-skybrand-600 hover:underline transition">Dermatologo</button>
+                            <button onclick="quickSearch('Psicologo', '')" class="hover:text-skybrand-600 hover:underline transition">Psicologo</button>
+                            <button onclick="quickSearch('Oculista', '')" class="hover:text-skybrand-600 hover:underline transition">Oculista</button>
+                            <button onclick="quickSearch('Urologo', '')" class="hover:text-skybrand-600 hover:underline transition">Urologo</button>
+                            <button onclick="quickSearch('Otorino', '')" class="hover:text-skybrand-600 hover:underline transition">Otorino</button>
+                            <button onclick="quickSearch('Dentista', '')" class="hover:text-skybrand-600 hover:underline transition">Dentista</button>
+                            <button onclick="quickSearch('Endocrinologo', '')" class="hover:text-skybrand-600 hover:underline transition">Endocrinologo</button>
+                            <button onclick="quickSearch('Neurologo', '')" class="hover:text-skybrand-600 hover:underline transition">Neurologo</button>
+                            <button onclick="quickSearch('Fisioterapista', '')" class="hover:text-skybrand-600 hover:underline transition">Fisioterapista</button>
+                            <button onclick="quickSearch('Psicoterapeuta', '')" class="hover:text-skybrand-600 hover:underline transition">Psicoterapeuta</button>
+                            <button onclick="quickSearch('Pediatra', '')" class="hover:text-skybrand-600 hover:underline transition">Pediatra</button>
+                            <button onclick="quickSearch('Andrologo', '')" class="hover:text-skybrand-600 hover:underline transition">Andrologo</button>
+                            <a href="#" onclick="focusSearch('specialty-input')" class="text-skybrand-600 font-semibold underline hover:text-skybrand-700">Altro</a>
+                        </div>
+                    </div>
+
+                    <!-- Procedures list row -->
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
+                        <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-slate-600">
+                            <span class="hover:text-skybrand-600 cursor-pointer transition">Blefaroplastica</span>
+                            <span class="hover:text-skybrand-600 cursor-pointer transition">Colposcopia</span>
+                            <span class="hover:text-skybrand-600 cursor-pointer transition">Mindfulness</span>
+                            <span class="hover:text-skybrand-600 cursor-pointer transition">Ecografia addome completo</span>
+                            <span class="hover:text-skybrand-600 cursor-pointer transition">Dieta chetogenica</span>
+                            <span class="hover:text-skybrand-600 cursor-pointer transition">Faccette dentali</span>
+                            <a href="#" onclick="focusSearch('specialty-input')" class="text-skybrand-600 font-semibold underline hover:text-skybrand-700">Altro</a>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <!-- POPULAR SPECIALTIES SECTION -->
-            <section id="specializzazioni" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-                <div class="flex flex-col md:flex-row md:items-end justify-between mb-10">
-                    <div>
-                        <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">Specializzazioni e Mansioni</h2>
-                        <p class="text-slate-500 mt-1">Scegli tra i medici, specialisti e professionisti sanitari disponibili</p>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4" id="specialties-grid">
-                    <!-- Populated dynamically via JS -->
-                </div>
-            </section>
-
-            <!-- ALL 121 ITALIAN PROVINCIAL CAPITALS SECTION -->
-            <section id="capoluoghi" class="py-16 bg-slate-100 border-t border-slate-200">
+            <!-- SECTION 2: FEATURE STEPS / HOW IT WORKS -->
+            <section class="py-16 bg-white border-b border-slate-200">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="flex flex-col md:flex-row md:items-end justify-between mb-8">
-                        <div>
-                            <div class="inline-flex items-center gap-2 px-3 py-1 bg-skybrand-100 text-skybrand-700 text-xs font-semibold rounded-full mb-3">
-                                <i class="fa-solid fa-map-location-dot"></i> Copertura Nazionale Integrale
-                            </div>
-                            <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">Tutti i 121 Capoluoghi d'Italia</h2>
-                            <p class="text-slate-500 mt-1">Seleziona la tua città o provincia per trovare i medici disponibili</p>
-                        </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                         
-                        <!-- Filter Search Input for Capitals -->
-                        <div class="mt-4 md:mt-0 relative w-full md:w-72">
-                            <i class="fa-solid fa-filter text-slate-400 absolute left-3.5 top-3 text-sm"></i>
-                            <input type="text" id="capitals-filter-input" oninput="filterCapitalsList()" placeholder="Filtra tra i 121 capoluoghi..." 
-                                   class="w-full pl-9 pr-4 py-2 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-skybrand-500">
+                        <!-- Feature 1 -->
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-skybrand-50 text-skybrand-500 flex items-center justify-center shrink-0 text-lg">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-900 text-base mb-1">Trova un dottore nella tua città</h3>
+                                <p class="text-slate-500 text-xs leading-relaxed">
+                                    Scegli tra oltre 390 000 medici di medicina generale e specialisti. Leggi le recensioni di altri pazienti.
+                                </p>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Region Selector Tabs -->
-                    <div class="flex items-center gap-2 overflow-x-auto pb-4 mb-6 no-scrollbar" id="region-tabs">
-                        <!-- Populated dynamically via JS -->
-                    </div>
+                        <!-- Feature 2 -->
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-skybrand-50 text-skybrand-500 flex items-center justify-center shrink-0 text-lg">
+                                <i class="fa-solid fa-calendar-check"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-900 text-base mb-1">Prenota una visita: è facile e gratuito!</h3>
+                                <p class="text-slate-500 text-xs leading-relaxed">
+                                    Scegli la data che preferisci, inserisci i tuoi dati e conferma... la visita è prenotata! Non comporta costi aggiuntivi.
+                                </p>
+                            </div>
+                        </div>
 
-                    <!-- Capitals Grid Display Container -->
-                    <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm" id="capitals-container">
-                        <!-- Populated dynamically via JS -->
+                        <!-- Feature 3 -->
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-skybrand-50 text-skybrand-500 flex items-center justify-center shrink-0 text-lg">
+                                <i class="fa-solid fa-file-medical"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-900 text-base mb-1">Richiedi prescrizioni</h3>
+                                <p class="text-slate-500 text-xs leading-relaxed">
+                                    Richiedi prescrizioni e condividi i risultati di test ed analisi con il tuo medico di medicina generale.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Feature 4 -->
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-skybrand-50 text-skybrand-500 flex items-center justify-center shrink-0 text-lg">
+                                <i class="fa-solid fa-bell"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-900 text-base mb-1">Promemoria via mail e SMS</h3>
+                                <p class="text-slate-500 text-xs leading-relaxed">
+                                    Ricorderai sempre le tue visite future! Ti ricorderemo della tua visita tramite email e sms.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: LA PAROLA AI DOTTORI & ULTIME RECENSIONI -->
+            <section class="py-16 bg-slate-50/60">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                        
+                        <!-- Left Block: La parola ai dottori -->
+                        <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200/80 shadow-sm">
+                            <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                                <i class="fa-solid fa-comment-medical text-skybrand-500"></i>
+                                <span>La parola ai dottori</span>
+                            </h2>
+                            <div class="p-5 bg-slate-50 rounded-xl border border-slate-100 space-y-3">
+                                <p class="text-xs sm:text-sm text-slate-700 leading-relaxed italic">
+                                    "La mia bambina è allattata e ha 15 mesi. Mi hanno trovato endometriosi e prescritto Visanne, perché se è solo progesterone non può essere assunta in allattamento?"
+                                </p>
+                                <div class="pt-2 border-t border-slate-200 flex items-center justify-between text-xs text-slate-500">
+                                    <span class="font-semibold text-skybrand-600">Risposta di 3 Ginecologi</span>
+                                    <span>2 ore fa</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Block: Ultime recensioni -->
+                        <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200/80 shadow-sm">
+                            <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                                <i class="fa-solid fa-star text-amber-400"></i>
+                                <span>Ultime recensioni</span>
+                            </h2>
+                            
+                            <div class="p-5 bg-slate-50 rounded-xl border border-slate-100 space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-9 h-9 bg-skybrand-100 text-skybrand-700 rounded-full flex items-center justify-center font-bold text-xs">
+                                            FM
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-slate-800 text-sm">Francesca Mineo</h4>
+                                            <p class="text-[11px] text-slate-400">Visita Ginecologica</p>
+                                        </div>
+                                    </div>
+                                    <!-- Star rating -->
+                                    <div class="text-amber-400 text-xs flex gap-0.5">
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                    </div>
+                                </div>
+                                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed italic">
+                                    "La visita è andata bene, la dottoressa è stata molto chiara, professionale e il suo modo di fare un dolce e rassicurante."
+                                </p>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </section>
         </div>
 
         <!-- SEARCH RESULTS VIEW (HIDDEN BY DEFAULT) -->
-        <div id="results-view" class="hidden py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div id="results-view" class="hidden py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
             <!-- Breadcrumbs and Back Button -->
             <div class="flex items-center justify-between mb-6">
                 <button onclick="showHomeView()" class="inline-flex items-center gap-2 text-sm font-semibold text-skybrand-600 hover:text-skybrand-700">
@@ -238,12 +405,6 @@
                     Hai cercato: <strong id="active-search-text" class="text-skybrand-600">--</strong>.<br>
                     Il layout della ricerca funziona con autocompletamento avanzato. I profili dei medici e l'agenda dei loro orari possono essere ora popolati direttamente dal tuo database.
                 </p>
-                <div class="p-4 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-800 text-left mb-6 flex items-start gap-3">
-                    <i class="fa-solid fa-circle-info text-amber-600 text-base mt-0.5"></i>
-                    <div>
-                        <strong>Nota per lo sviluppo:</strong> Il modulo di ricerca, i filtri di localizzazione sui 121 capoluoghi e tutte le categorie registrate sono completamente sincronizzati.
-                    </div>
-                </div>
                 <button onclick="showHomeView()" class="px-5 py-2.5 bg-skybrand-500 hover:bg-skybrand-600 text-white font-medium text-sm rounded-xl transition shadow-md shadow-skybrand-500/20">
                     Effettua un'altra ricerca
                 </button>
@@ -267,8 +428,8 @@
                 <div>
                     <h4 class="text-white text-sm font-semibold mb-3">Per i Pazienti</h4>
                     <ul class="text-xs space-y-2">
-                        <li><a href="#specializzazioni" class="hover:text-white transition">Cerca Dottori</a></li>
-                        <li><a href="#capoluoghi" class="hover:text-white transition">Capoluoghi d'Italia</a></li>
+                        <li><a href="#" onclick="focusSearch('specialty-input')" class="hover:text-white transition">Cerca Dottori</a></li>
+                        <li><a href="#" onclick="focusSearch('location-input')" class="hover:text-white transition">Cerca Capoluoghi</a></li>
                         <li><a href="#" class="hover:text-white transition">Videoconsulto</a></li>
                     </ul>
                 </div>
@@ -325,8 +486,7 @@
         // Map to structured specialty objects
         const SPECIALTIES = RAW_SPECIALTIES.map(name => ({
             name: name,
-            icon: 'fa-user-doctor',
-            desc: 'Specialista'
+            icon: 'fa-user-doctor'
         }));
 
         // DATA: ALL 121 ITALIAN PROVINCIAL CAPITALS GROUPED BY REGION
@@ -354,94 +514,24 @@
         };
 
         const ALL_CAPITALS_FLAT = Object.values(REGIONAL_CAPITALS).flat();
-        let activeRegion = 'Tutti';
 
         // INITIALIZATION ON LOAD
         window.onload = function() {
-            renderSpecialties();
-            renderRegionTabs();
-            renderCapitalsGrid();
             setupAutocomplete();
         };
 
-        // Render Specialties Grid
-        function renderSpecialties() {
-            const container = document.getElementById('specialties-grid');
-            container.innerHTML = SPECIALTIES.map(s => `
-                <div onclick="quickSearch('${s.name}', '')" 
-                     class="bg-white p-4 rounded-xl border border-slate-200 hover:border-skybrand-400 hover:shadow-md transition cursor-pointer text-center group">
-                    <div class="w-10 h-10 bg-skybrand-50 text-skybrand-500 group-hover:bg-skybrand-500 group-hover:text-white rounded-xl flex items-center justify-center mx-auto mb-2 transition">
-                        <i class="fa-solid ${s.icon} text-lg"></i>
-                    </div>
-                    <h3 class="font-semibold text-slate-800 text-xs group-hover:text-skybrand-600 transition truncate" title="${s.name}">${s.name}</h3>
-                </div>
-            `).join('');
-        }
+        // Toggle dropdowns in header navigation
+        function toggleDropdown(dropdownId) {
+            const dropdown = document.getElementById(dropdownId);
+            const isHidden = dropdown.classList.contains('hidden');
 
-        // Render Region Selector Tabs
-        function renderRegionTabs() {
-            const container = document.getElementById('region-tabs');
-            const regions = ['Tutti', ...Object.keys(REGIONAL_CAPITALS)];
-            
-            container.innerHTML = regions.map(reg => `
-                <button onclick="selectRegion('${reg}')" 
-                        class="px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition border ${
-                            activeRegion === reg 
-                            ? 'bg-skybrand-500 text-white border-skybrand-500 shadow-sm' 
-                            : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-50'
-                        }">
-                    ${reg} ${reg === 'Tutti' ? '(121)' : ''}
-                </button>
-            `).join('');
-        }
+            // Close other open dropdowns
+            document.getElementById('register-dropdown').classList.add('hidden');
+            document.getElementById('pro-dropdown').classList.add('hidden');
 
-        function selectRegion(region) {
-            activeRegion = region;
-            renderRegionTabs();
-            renderCapitalsGrid();
-        }
-
-        // Render Capitals Grid
-        function renderCapitalsGrid() {
-            const container = document.getElementById('capitals-container');
-            const filterText = document.getElementById('capitals-filter-input').value.toLowerCase().trim();
-
-            let html = '';
-
-            for (const [region, capitals] of Object.entries(REGIONAL_CAPITALS)) {
-                if (activeRegion !== 'Tutti' && activeRegion !== region) continue;
-
-                const matchingCapitals = capitals.filter(c => c.toLowerCase().includes(filterText));
-
-                if (matchingCapitals.length > 0) {
-                    html += `
-                        <div class="mb-6 last:mb-0">
-                            <h4 class="text-xs font-bold text-skybrand-700 uppercase tracking-wider mb-3 pb-1 border-b border-slate-100 flex items-center gap-2">
-                                <i class="fa-solid fa-location-dot text-skybrand-500"></i> ${region}
-                            </h4>
-                            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2.5">
-                                ${matchingCapitals.map(city => `
-                                    <button onclick="quickSearch('', '${city}')" 
-                                            class="text-left px-3 py-2 rounded-lg bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-600 text-slate-700 text-xs font-medium border border-slate-100 transition flex items-center justify-between group">
-                                        <span>${city}</span>
-                                        <i class="fa-solid fa-chevron-right text-[10px] text-slate-300 group-hover:text-skybrand-500"></i>
-                                    </button>
-                                `).join('')}
-                            </div>
-                        </div>
-                    `;
-                }
+            if (isHidden) {
+                dropdown.classList.remove('hidden');
             }
-
-            if (html === '') {
-                html = `<div class="text-center py-8 text-slate-400 text-sm">Nessun capoluogo trovato per "${filterText}"</div>`;
-            }
-
-            container.innerHTML = html;
-        }
-
-        function filterCapitalsList() {
-            renderCapitalsGrid();
         }
 
         // Autocomplete functionality
@@ -452,11 +542,19 @@
             const locAuto = document.getElementById('location-autocomplete');
 
             // Specialty Input Listener
-            specInput.addEventListener('input', function() {
-                const val = this.value.toLowerCase().trim();
-                if (!val) { specAuto.classList.add('hidden'); return; }
+            specInput.addEventListener('focus', function() {
+                renderSpecialtyMatches(this.value.toLowerCase().trim());
+            });
 
-                const matches = SPECIALTIES.filter(s => s.name.toLowerCase().includes(val));
+            specInput.addEventListener('input', function() {
+                renderSpecialtyMatches(this.value.toLowerCase().trim());
+            });
+
+            function renderSpecialtyMatches(val) {
+                const matches = val 
+                    ? SPECIALTIES.filter(s => s.name.toLowerCase().includes(val))
+                    : SPECIALTIES.slice(0, 8);
+
                 if (matches.length > 0) {
                     specAuto.innerHTML = matches.slice(0, 10).map(s => `
                         <div onclick="selectAutocomplete('specialty-input', '${s.name}', 'specialty-autocomplete')" 
@@ -469,16 +567,24 @@
                 } else {
                     specAuto.classList.add('hidden');
                 }
-            });
+            }
 
             // Location Input Listener
-            locInput.addEventListener('input', function() {
-                const val = this.value.toLowerCase().trim();
-                if (!val) { locAuto.classList.add('hidden'); return; }
+            locInput.addEventListener('focus', function() {
+                renderLocationMatches(this.value.toLowerCase().trim());
+            });
 
-                const matches = ALL_CAPITALS_FLAT.filter(c => c.toLowerCase().includes(val));
+            locInput.addEventListener('input', function() {
+                renderLocationMatches(this.value.toLowerCase().trim());
+            });
+
+            function renderLocationMatches(val) {
+                const matches = val 
+                    ? ALL_CAPITALS_FLAT.filter(c => c.toLowerCase().includes(val))
+                    : ALL_CAPITALS_FLAT.slice(0, 8);
+
                 if (matches.length > 0) {
-                    locAuto.innerHTML = matches.slice(0, 8).map(c => `
+                    locAuto.innerHTML = matches.slice(0, 10).map(c => `
                         <div onclick="selectAutocomplete('location-input', '${c}', 'location-autocomplete')" 
                              class="px-4 py-2 hover:bg-skybrand-50 text-sm text-slate-700 cursor-pointer flex items-center gap-2">
                             <i class="fa-solid fa-location-dot text-skybrand-500 text-xs"></i>
@@ -489,12 +595,22 @@
                 } else {
                     locAuto.classList.add('hidden');
                 }
-            });
+            }
 
             // Close dropdowns on outside click
             document.addEventListener('click', function(e) {
                 if (!specInput.contains(e.target) && !specAuto.contains(e.target)) specAuto.classList.add('hidden');
                 if (!locInput.contains(e.target) && !locAuto.contains(e.target)) locAuto.classList.add('hidden');
+                
+                // Close header dropdowns if click is outside
+                const regContainer = document.getElementById('register-dropdown-container');
+                const proContainer = document.getElementById('pro-dropdown-container');
+                if (regContainer && !regContainer.contains(e.target)) {
+                    document.getElementById('register-dropdown').classList.add('hidden');
+                }
+                if (proContainer && !proContainer.contains(e.target)) {
+                    document.getElementById('pro-dropdown').classList.add('hidden');
+                }
             });
         }
 
@@ -503,7 +619,12 @@
             document.getElementById(autoId).classList.add('hidden');
         }
 
-        // Quick Search Action
+        function focusSearch(inputId) {
+            showHomeView();
+            const el = document.getElementById(inputId);
+            if (el) el.focus();
+        }
+
         function quickSearch(specialty, location) {
             document.getElementById('specialty-input').value = specialty;
             document.getElementById('location-input').value = location;
