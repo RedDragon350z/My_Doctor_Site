@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salute&Medici - Trova Specialisti e Prenota la Tua Visita</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        skybrand: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985',
+                            800: '#0c4a6e',
+                            900: '#0f172a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; }
+        .hero-bg { background: linear-gradient(135deg, #e0f2fe 0%, #ffffff 100%); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <a href="#" onclick="showHomeView(); return false;" class="flex items-center gap-3 group">
+                <div class="w-12 h-12 bg-skybrand-500 rounded-xl flex items-center justify-center text-white shadow-md shadow-skybrand-500/20 group-hover:bg-skybrand-600 transition">
+                    <i class="fa-solid fa-stethoscope text-2xl"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-xl font-bold tracking-tight text-slate-800 flex items-center gap-1.5">
+                        Salute<span class="text-skybrand-500">&</span>Medici
+                    </span>
+                    <span class="text-xs text-slate-400 font-medium">Trova e prenota specializzazioni</span>
+                </div>
+            </a>
+
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-700">
+                <a href="#" class="hover:text-skybrand-600 transition">Trattamento dei dati</a>
+                <a href="#" class="hover:text-skybrand-600 transition">Chiedi al Dottore</a>
+
+                <div class="relative inline-block text-left" id="register-dropdown-container">
+                    <button type="button" onclick="toggleDropdown('register-dropdown')" class="flex items-center gap-1 hover:text-skybrand-600 transition font-medium focus:outline-none py-2">
+                        <span>Registrati gratis</span>
+                        <i class="fa-solid fa-chevron-down text-xs ml-0.5"></i>
+                    </button>
+                    <div id="register-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-slate-200 py-2 z-50">
+                        <a href="#" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-skybrand-50 hover:text-skybrand-600 transition">
+                            <i class="fa-solid fa-user mr-2 text-skybrand-500"></i> Come Paziente
+                        </a>
+                        <a href="#" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-skybrand-50 hover:text-skybrand-600 transition">
+                            <i class="fa-solid fa-user-doctor mr-2 text-skybrand-500"></i> Come Dottore / MMG
+                        </a>
+                        <a href="#" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-skybrand-50 hover:text-skybrand-600 transition">
+                            <i class="fa-solid fa-hospital mr-2 text-skybrand-500"></i> Come Centro Medico
+                        </a>
+                    </div>
+                </div>
+
+                <a href="#" class="hover:text-skybrand-600 transition font-medium">Login</a>
+
+                <div class="relative inline-block text-left" id="pro-dropdown-container">
+                    <button type="button" onclick="toggleDropdown('pro-dropdown')" class="flex items-center gap-1.5 px-4 py-2 rounded-full border border-slate-300 bg-white hover:border-skybrand-400 text-slate-800 transition">
+                        <span>Sei un Professionista sanitario?</span>
+                        <i class="fa-solid fa-chevron-down text-xs text-slate-500"></i>
+                    </button>
+                    <div id="pro-dropdown" class="hidden absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-slate-200 py-2 z-50">
+                        <a href="#" class="block px-5 py-3 text-sm text-slate-800 hover:bg-skybrand-50 hover:text-skybrand-600 transition font-normal">Registrati gratis</a>
+                        <a href="#" class="block px-5 py-3 text-sm text-slate-800 hover:bg-skybrand-50 hover:text-skybrand-600 transition font-normal">Area professionisti sanitari</a>
+                        <a href="#" class="flex items-center justify-between px-5 py-3 text-sm text-slate-800 hover:bg-skybrand-50 hover:text-skybrand-600 transition font-normal">
+                            <span>Noa Notes</span>
+                            <span class="bg-skybrand-100 text-skybrand-700 text-[10px] font-bold px-2 py-0.5 rounded-md uppercase">IA</span>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow flex flex-col justify-center">
+        <div id="home-view" class="pb-16">
+            <section class="hero-bg pt-16 pb-20 px-4 sm:px-6 lg:px-8 border-b border-skybrand-100">
+                <div class="max-w-4xl mx-auto text-center">
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-4">
+                        Prenota la tua visita medica online
+                    </h1>
+                    <p class="text-lg text-slate-600 max-w-2xl mx-auto mb-10">
+                        Cerca tra i migliori specialisti, dottori e cliniche in tutti i 121 capoluoghi d'Italia.
+                    </p>
+
+                    <div class="bg-white p-3 rounded-2xl shadow-xl border border-slate-200/80 max-w-4xl mx-auto relative z-30">
+                        <form id="search-form" class="grid grid-cols-1 md:grid-cols-12 gap-3">
+                            <div class="md:col-span-5 relative text-left">
+                                <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1 ml-3">Specializzazione o Medico</label>
+                                <div class="relative flex items-center">
+                                    <i class="fa-solid fa-magnifying-glass text-slate-400 absolute left-3.5 text-base"></i>
+                                    <input type="text" id="specialty-input" placeholder="Es. Ginecologo, Dermatologo, Cardiologo..." autocomplete="off" class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-skybrand-200 focus:border-skybrand-400 transition">
+                                </div>
+                                <div id="specialty-autocomplete" class="hidden absolute left-0 right-0 top-full mt-2 bg-white rounded-xl shadow-xl border border-slate-200 max-h-60 overflow-y-auto z-50"></div>
+                            </div>
+
+                            <div class="md:col-span-5 relative text-left">
+                                <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1 ml-3">Città o Capoluogo</label>
+                                <div class="relative flex items-center">
+                                    <i class="fa-solid fa-location-dot text-slate-400 absolute left-3.5 text-base"></i>
+                                    <input type="text" id="location-input" placeholder="Es. Roma, Milano, Torino, Matera..." autocomplete="off" class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-skybrand-200 focus:border-skybrand-400 transition">
+                                </div>
+                                <div id="location-autocomplete" class="hidden absolute left-0 right-0 top-full mt-2 bg-white rounded-xl shadow-xl border border-slate-200 max-h-60 overflow-y-auto z-50"></div>
+                            </div>
+
+                            <div class="md:col-span-2 flex items-end">
+                                <button type="submit" class="w-full h-[42px] bg-skybrand-500 hover:bg-skybrand-600 text-white font-semibold rounded-xl transition flex items-center justify-center gap-2 shadow-md shadow-skybrand-500/20">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                    <span>Cerca</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="mt-6 flex flex-wrap items-center justify-center gap-2 text-xs text-slate-500">
+                        <span class="font-semibold text-slate-400 uppercase tracking-wider text-[11px] mr-1 flex items-center gap-1">
+                            <i class="fa-solid fa-bolt text-amber-500"></i> Ricerche frequenti:
+                        </span>
+                        <button type="button" onclick="quickSearch('Ginecologo', '')" class="bg-white/90 hover:bg-skybrand-50 hover:text-skybrand-600 hover:border-skybrand-300 border border-slate-200/80 px-3 py-1.5 rounded-full transition"><span>🤰</span> Ginecologo</button>
+                        <button type="button" onclick="quickSearch('Dermatologo', '')" class="bg-white/90 hover:bg-skybrand-50 hover:text-skybrand-600 hover:border-skybrand-300 border border-slate-200/80 px-3 py-1.5 rounded-full transition"><span>🩺</span> Dermatologo</button>
+                        <button type="button" onclick="quickSearch('Psicologo', '')" class="bg-white/90 hover:bg-skybrand-50 hover:text-skybrand-600 hover:border-skybrand-300 border border-slate-200/80 px-3 py-1.5 rounded-full transition"><span>🧠</span> Psicologo</button>
+                        <button type="button" onclick="quickSearch('', 'Roma')" class="bg-white/90 hover:bg-skybrand-50 hover:text-skybrand-600 hover:border-skybrand-300 border border-slate-200/80 px-3 py-1.5 rounded-full transition"><i class="fa-solid fa-location-dot text-skybrand-500 text-[10px]"></i> Roma</button>
+                        <button type="button" onclick="quickSearch('', 'Milano')" class="bg-white/90 hover:bg-skybrand-50 hover:text-skybrand-600 hover:border-skybrand-300 border border-slate-200/80 px-3 py-1.5 rounded-full transition"><i class="fa-solid fa-location-dot text-skybrand-500 text-[10px]"></i> Milano</button>
+                        <button type="button" onclick="clearSearchInputs()" class="text-slate-400 hover:text-slate-600 px-2 py-1 transition text-[11px] font-medium underline">Pulisci</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-12 bg-slate-50/50 border-b border-slate-200">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-user-doctor text-skybrand-500"></i> Tutte le Specializzazioni e Mansioni
+                        </h3>
+                        <div id="specialties-quick-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 max-h-96 overflow-y-auto pr-2"></div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-stethoscope text-skybrand-500"></i> Prestazioni e Trattamenti Frequenti
+                        </h3>
+                        <div class="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-slate-700">
+                            <button type="button" onclick="fillSpecialty('Blefaroplastica')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-600 border border-slate-200 transition"><span>👁️</span> <span>Blefaroplastica</span></button>
+                            <button type="button" onclick="fillSpecialty('Colposcopia')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-600 border border-slate-200 transition"><span>🔬</span> <span>Colposcopia</span></button>
+                            <button type="button" onclick="fillSpecialty('Mindfulness')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-600 border border-slate-200 transition"><span>🧠</span> <span>Mindfulness</span></button>
+                            <button type="button" onclick="fillSpecialty('Ecografia addome completo')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-600 border border-slate-200 transition"><span>📡</span> <span>Ecografia addome completo</span></button>
+                            <button type="button" onclick="fillSpecialty('Dieta chetogenica')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-600 border border-slate-200 transition"><span>🥗</span> <span>Dieta chetogenica</span></button>
+                            <button type="button" onclick="fillSpecialty('Faccette dentali')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-600 border border-slate-200 transition"><span>🦷</span> <span>Faccette dentali</span></button>
+                            <button type="button" onclick="focusSearch('specialty-input')" class="text-skybrand-600 font-semibold underline hover:text-skybrand-700 ml-2">Altro</button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-city text-skybrand-500"></i> Tutti i 121 Capoluoghi d'Italia
+                        </h3>
+                        <div id="cities-quick-container" class="flex flex-wrap items-center gap-2 text-xs text-slate-700 max-h-52 overflow-y-auto pr-2"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-16 bg-white border-b border-slate-200">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-skybrand-50 text-skybrand-500 flex items-center justify-center shrink-0 text-lg">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-900 text-base mb-1">Trova un dottore nella tua città</h3>
+                                <p class="text-slate-500 text-xs leading-relaxed">Scegli tra oltre 390 000 medici di medicina generale e specialisti. Leggi le recensioni di altri pazienti.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-skybrand-50 text-skybrand-500 flex items-center justify-center shrink-0 text-lg">
+                                <i class="fa-solid fa-calendar-check"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-900 text-base mb-1">Prenota una visita: è facile e gratuito!</h3>
+                                <p class="text-slate-500 text-xs leading-relaxed">Scegli la data che preferisci, inserisci i tuoi dati e conferma... la visita è prenotata! Non comporta costi aggiuntivi.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-skybrand-50 text-skybrand-500 flex items-center justify-center shrink-0 text-lg">
+                                <i class="fa-solid fa-file-medical"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-900 text-base mb-1">Richiedi prescrizioni</h3>
+                                <p class="text-slate-500 text-xs leading-relaxed">Richiedi prescrizioni e condividi i risultati di test ed analisi con il tuo medico di medicina generale.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <div class="w-10 h-10 rounded-xl bg-skybrand-50 text-skybrand-500 flex items-center justify-center shrink-0 text-lg">
+                                <i class="fa-solid fa-bell"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-slate-900 text-base mb-1">Promemoria via mail e SMS</h3>
+                                <p class="text-slate-500 text-xs leading-relaxed">Ricorderai sempre le tue visite future! Ti ricorderemo della tua visita tramite email e sms.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-16 bg-slate-50/60">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                        <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200/80 shadow-sm">
+                            <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                                <i class="fa-solid fa-comment-medical text-skybrand-500"></i>
+                                <span>La parola ai dottori</span>
+                            </h2>
+                            <div class="p-5 bg-slate-50 rounded-xl border border-slate-100 space-y-3">
+                                <p class="text-xs sm:text-sm text-slate-700 leading-relaxed italic">"La mia bambina è allattata e ha 15 mesi. Mi hanno trovato endometriosi e prescritto Visanne, perché se è solo progesterone non può essere assunta in allattamento. Spero di ricevere risposta e convenzioni per un aiuto vero. Grazie."</p>
+                                <div class="pt-2 border-t border-slate-200 flex items-center justify-between text-xs text-slate-500">
+                                    <span class="font-semibold text-skybrand-600">Risposta di 3 Ginecologi</span>
+                                    <span>2 ore fa</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200/80 shadow-sm">
+                            <h2 class="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                                <i class="fa-solid fa-star text-amber-400"></i>
+                                <span>Ultime recensioni</span>
+                            </h2>
+                            <div class="p-5 bg-slate-50 rounded-xl border border-slate-100 space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-9 h-9 bg-skybrand-100 text-skybrand-700 rounded-full flex items-center justify-center font-bold text-xs">FM</div>
+                                        <div>
+                                            <h4 class="font-bold text-slate-800 text-sm">Francesca Mineo</h4>
+                                            <p class="text-[11px] text-slate-400">Visita Ginecologica</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-amber-400 text-xs flex gap-0.5">
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                    </div>
+                                </div>
+                                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed italic">"La visita è andata bene, la dottoressa è stata molto chiara, professionale e il suo modo di fare dolce e rassicurante."</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="results-view" class="hidden py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+            <div class="flex items-center justify-between mb-6">
+                <button type="button" onclick="showHomeView()" class="inline-flex items-center gap-2 text-sm font-semibold text-skybrand-600 hover:text-skybrand-700">
+                    <i class="fa-solid fa-arrow-left"></i> Torna alla Home
+                </button>
+                <span class="text-xs text-slate-400" id="search-query-summary">Ricerche attive</span>
+            </div>
+
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm mb-6 flex flex-col md:flex-row items-center justify-between gap-4">
+                <div>
+                    <h1 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                        <i class="fa-solid fa-user-doctor text-skybrand-500"></i>
+                        <span id="results-title">Risultati di ricerca</span>
+                    </h1>
+                    <p class="text-xs text-slate-500 mt-0.5">Seleziona il medico e scegli lo slot per la prenotazione online</p>
+                </div>
+
+                <div class="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0">
+                    <button type="button" class="px-3 py-1.5 bg-skybrand-50 text-skybrand-700 border border-skybrand-200 rounded-lg text-xs font-semibold flex items-center gap-1.5">
+                        <i class="fa-solid fa-building-user"></i> In Studio
+                    </button>
+                    <button type="button" class="px-3 py-1.5 bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 rounded-lg text-xs font-medium flex items-center gap-1.5">
+                        <i class="fa-solid fa-video"></i> Videoconsulto
+                    </button>
+                    <button type="button" class="px-3 py-1.5 bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 rounded-lg text-xs font-medium flex items-center gap-1.5">
+                        <i class="fa-solid fa-calendar-check"></i> Disponibilità oggi/domani
+                    </button>
+                </div>
+            </div>
+
+            <div class="mb-6 bg-white border border-slate-200 rounded-2xl p-5 text-sm text-slate-600">
+                Hai cercato: <strong id="active-search-text" class="text-skybrand-600">--</strong>
+            </div>
+
+            <div id="results-grid" class="grid grid-cols-1 xl:grid-cols-2 gap-6"></div>
+
+            <div id="no-results-state" class="hidden bg-white border border-slate-200 rounded-2xl p-12 text-center max-w-2xl mx-auto shadow-sm my-12">
+                <div class="w-16 h-16 bg-skybrand-50 text-skybrand-500 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                    <i class="fa-solid fa-user-plus"></i>
+                </div>
+                <h3 class="text-xl font-bold text-slate-900 mb-2">Nessun risultato trovato</h3>
+                <p class="text-slate-500 text-sm mb-6 leading-relaxed">
+                    Prova una specializzazione diversa oppure cambia la città per trovare un medico disponibile nella tua area.
+                </p>
+                <button type="button" onclick="showHomeView()" class="px-5 py-2.5 bg-skybrand-500 hover:bg-skybrand-600 text-white font-medium text-sm rounded-xl transition shadow-md shadow-skybrand-500/20">
+                    Effettua un'altra ricerca
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center gap-2 text-white font-bold text-lg mb-3">
+                        <i class="fa-solid fa-stethoscope text-skybrand-400"></i>
+                        <span>Salute&Medici</span>
+                    </div>
+                    <p class="text-xs text-slate-500 leading-relaxed">Piattaforma sanitaria di prenotazione visite mediche ed esami specialistici in tutta Italia.</p>
+                </div>
+                <div>
+                    <h4 class="text-white text-sm font-semibold mb-3">Per i Pazienti</h4>
+                    <ul class="text-xs space-y-2">
+                        <li><a href="#" onclick="focusSearch('specialty-input'); return false;" class="hover:text-white transition">Cerca Dottori</a></li>
+                        <li><a href="#" onclick="focusSearch('location-input'); return false;" class="hover:text-white transition">Cerca Capoluoghi</a></li>
+                        <li><a href="#" class="hover:text-white transition">Videoconsulto</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white text-sm font-semibold mb-3">Per i Professionisti</h4>
+                    <ul class="text-xs space-y-2">
+                        <li><a href="#" class="hover:text-white transition">Sei un Medico?</a></li>
+                        <li><a href="#" class="hover:text-white transition">Software Gestionale Studio</a></li>
+                        <li><a href="#" class="hover:text-white transition">Soluzioni per Cliniche</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white text-sm font-semibold mb-3">Legale & Privacy</h4>
+                    <ul class="text-xs space-y-2">
+                        <li><a href="#" class="hover:text-white transition">Privacy Policy (GDPR)</a></li>
+                        <li><a href="#" class="hover:text-white transition">Termini e Condizioni</a></li>
+                        <li><a href="#" class="hover:text-white transition">Informativa Cookie</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-slate-800 text-center text-xs text-slate-600">&copy; 2026 - Piattaforma Sanitaria Italia. Tutti i diritti riservati.</div>
+        </div>
+    </footer>
+
+    <script>
+        const state = { isAutoSelecting: false };
+
+        const ICON_MAP = {
+            'Ginecologo': '🤰', 'Cardiologo': '🫀', 'Dentista': '🦷', 'Oculista': '👁️',
+            'Dermatologo': '🩺', 'Ortopedico': '🦴', 'Psicologo': '🧠', 'Psicoterapeuta': '🧠',
+            'Psichiatra': '🧠', 'Nutrizionista': '🥗', 'Dietista': '🥗', 'Dietologo': '🥗',
+            'Pediatra': '👶', 'Pediatra Di Libera Scelta': '👶', 'Neurologo': '🧠', 'Otorino': '👂',
+            'Fisioterapista': '🏃', 'Osteopata': '🦴', 'Urologo': '🩺', 'Andrologo': '🩺',
+            'Radiologo': '🩻', 'Ecografista': '📡', 'Oncologo': '🎗', 'Allergologo': '🤧',
+            'Blefaroplastica': '👁️', 'Colposcopia': '🔬', 'Mindfulness': '🧠',
+            'Ecografia addome completo': '📡', 'Dieta chetogenica': '🥗', 'Faccette dentali': '🦷'
+        };
+
+        const RAW_SPECIALTIES = [
+            'Medico Di Medicina Generale', 'Ginecologo', 'Ortopedico', 'Dermatologo', 'Nutrizionista', 'Psicologo', 'Oculista', 'Urologo', 'Otorino', 'Cardiologo',
+            'Dentista', 'Chirurgo Generale', 'Osteopata', 'Internista', 'Medico Estetico', 'Endocrinologo', 'Gastroenterologo', 'Neurologo', 'Neurochirurgo', 'Fisioterapista',
+            'Psicoterapeuta', 'Chirurgo Plastico', 'Psichiatra', 'Pediatra', 'Podologo', 'Reumatologo', 'Pneumologo', 'Fisiatra', 'Chirurgo Vascolare', 'Andrologo',
+            'Dietista', 'Allergologo', 'Radiologo', 'Proctologo', 'Ematologo', 'Angiologo', 'Dietologo', 'Senologo', 'Geriatra', 'Agopuntore', 'Medico Dello Sport',
+            'Oncologo', 'Pediatra Di Libera Scelta', 'Nefrologo', 'Diabetologo', 'Psicologo Clinico', 'Chirurgo', 'Logopedista', 'Chirurgo Maxillo Facciale',
+            'Cardiochirurgo', 'Chiropratico', 'Medico Legale', 'Neuropsichiatra Infantile', 'Anestesista', 'Ortodontista', 'Chirurgo Estetico', 'Biologo Nutrizionista',
+            'Terapista Del Dolore', 'Ostetrica', 'Medico Competente', 'Ecografista', 'Omeopata', 'Infettivologo', 'Radiologo Diagnostico', 'Sessuologo', 'Epatologo',
+            'Chirurgo Toracico', 'Chirurgo Pediatrico', 'Chirurgo Vertebrale', 'Massofisioterapista', 'Ortottista', 'Posturologo', 'Medico Certificatore', 'Tricologo', 'Tecnico Sanitario',
+            'Foniatra', 'Terapeuta', 'Infermiere', 'Immunologo', 'Igienista Dentale', 'Professional Counselor', 'Medico Genetista', 'Biologo Della Riproduzione',
+            'Neuropsichiatra', 'Neuropsicologo', 'Anatomopatologo', 'Radioterapista', 'Medico Nucleare', 'Chinesiologo', 'Donazione Sangue', 'Venereologo', 'Stomatologo', 'Massoterapista',
+            'Tecnico Radiologo', 'Parodontologo', 'Analista Clinico', 'Covid Test', 'Medico Aeronautico', 'Audioprotesista', 'Epidemiologo'
+        ];
+
+        const SPECIALTIES = RAW_SPECIALTIES.map((name) => ({ name, icon: ICON_MAP[name] || '🩺' }));
+
+        const REGIONAL_CAPITALS = {
+            Abruzzo: ['L\'Aquila', 'Chieti', 'Pescara', 'Teramo'],
+            Basilicata: ['Matera', 'Potenza'],
+            Calabria: ['Catanzaro', 'Cosenza', 'Crotone', 'Reggio Calabria', 'Vibo Valentia'],
+            Campania: ['Avellino', 'Benevento', 'Caserta', 'Napoli', 'Salerno'],
+            'Emilia-Romagna': ['Bologna', 'Cesena', 'Ferrara', 'Forlì', 'Modena', 'Parma', 'Piacenza', 'Ravenna', 'Reggio Emilia', 'Rimini'],
+            'Friuli-Venezia Giulia': ['Gorizia', 'Pordenone', 'Trieste', 'Udine'],
+            Lazio: ['Frosinone', 'Latina', 'Rieti', 'Roma', 'Viterbo'],
+            Liguria: ['Genova', 'Imperia', 'La Spezia', 'Savona'],
+            Lombardia: ['Bergamo', 'Brescia', 'Como', 'Cremona', 'Lecco', 'Lodi', 'Mantova', 'Milano', 'Monza', 'Pavia', 'Sondrio', 'Varese'],
+            Marche: ['Ancona', 'Ascoli Piceno', 'Fermo', 'Macerata', 'Pesaro', 'Urbino'],
+            Molise: ['Campobasso', 'Isernia'],
+            Piemonte: ['Alessandria', 'Asti', 'Biella', 'Cuneo', 'Novara', 'Torino', 'Verbania', 'Vercelli'],
+            Puglia: ['Andria', 'Bari', 'Barletta', 'Brindisi', 'Foggia', 'Lecce', 'Taranto', 'Trani'],
+            Sardegna: ['Cagliari', 'Carbonia', 'Iglesias', 'Nuoro', 'Oristano', 'Sassari'],
+            Sicilia: ['Agrigento', 'Caltanissetta', 'Catania', 'Enna', 'Messina', 'Palermo', 'Ragusa', 'Siracusa', 'Trapani'],
+            Toscana: ['Arezzo', 'Firenze', 'Grosseto', 'Livorno', 'Lucca', 'Massa', 'Pisa', 'Pistoia', 'Prato', 'Siena'],
+            'Trentino-Alto Adige': ['Bolzano', 'Trento'],
+            Umbria: ['Perugia', 'Terni'],
+            'Valle d\'Aosta': ['Aosta'],
+            Veneto: ['Belluno', 'Padova', 'Rovigo', 'Treviso', 'Venezia', 'Verona', 'Vicenza']
+        };
+
+        const ALL_CAPITALS_FLAT = Object.values(REGIONAL_CAPITALS).flat();
+
+        const DOCTORS = [
+            { id: 1, name: 'Dott.ssa Elena Rossi', specialty: 'Ginecologo', city: 'Roma', rating: 4.9, reviews: 312, nextSlot: 'Oggi, 15:30', price: '€45', clinic: 'Centro Medico Roma Sud', distance: '1.2 km' },
+            { id: 2, name: 'Dott. Marco Bianchi', specialty: 'Cardiologo', city: 'Milano', rating: 4.8, reviews: 286, nextSlot: 'Domani, 09:15', price: '€60', clinic: 'Policlinico San Marco', distance: '2.4 km' },
+            { id: 3, name: 'Dott.ssa Sofia Moretti', specialty: 'Dermatologo', city: 'Napoli', rating: 4.7, reviews: 198, nextSlot: 'Oggi, 18:00', price: '€50', clinic: 'Studio Dermatologico Via Toledo', distance: '900 m' },
+            { id: 4, name: 'Dott. Luca Ferrara', specialty: 'Ortopedico', city: 'Torino', rating: 4.9, reviews: 421, nextSlot: 'Domani, 11:45', price: '€55', clinic: 'Casa di Cura Torino Nord', distance: '1.8 km' },
+            { id: 5, name: 'Dott.ssa Giulia Romano', specialty: 'Psicologo', city: 'Firenze', rating: 4.8, reviews: 354, nextSlot: 'Oggi, 17:15', price: '€40', clinic: 'Centro Psicologia e Benessere', distance: '2.1 km' },
+            { id: 6, name: 'Dott. Paolo Greco', specialty: 'Urologo', city: 'Bologna', rating: 4.9, reviews: 265, nextSlot: 'Domani, 10:00', price: '€58', clinic: 'Ospedale Maggiore', distance: '3.0 km' },
+            { id: 7, name: 'Dott.ssa Marta De Luca', specialty: 'Oculista', city: 'Palermo', rating: 4.6, reviews: 179, nextSlot: 'Oggi, 16:45', price: '€52', clinic: 'Clinica Oftalmica Sicilia', distance: '1.5 km' },
+            { id: 8, name: 'Dott. Andrea Conti', specialty: 'Dentista', city: 'Roma', rating: 4.8, reviews: 403, nextSlot: 'Domani, 12:30', price: '€48', clinic: 'Studio Dentistico Via Flaminia', distance: '1.1 km' },
+            { id: 9, name: 'Dott.ssa Chiara Santoro', specialty: 'Nutrizionista', city: 'Milano', rating: 4.7, reviews: 213, nextSlot: 'Oggi, 14:15', price: '€35', clinic: 'Wellness & Nutrition Center', distance: '2.7 km' },
+            { id: 10, name: 'Dott. Francesco Marino', specialty: 'Neurologo', city: 'Genova', rating: 4.9, reviews: 332, nextSlot: 'Domani, 08:45', price: '€62', clinic: 'Neurologia & Diagnostica', distance: '1.9 km' },
+            { id: 11, name: 'Dott.ssa Valentina Esposito', specialty: 'Pediatra', city: 'Napoli', rating: 4.8, reviews: 297, nextSlot: 'Oggi, 19:00', price: '€42', clinic: 'Pediatria Della Salute', distance: '1.4 km' },
+            { id: 12, name: 'Dott. Giorgio Russo', specialty: 'Fisioterapista', city: 'Bari', rating: 4.7, reviews: 241, nextSlot: 'Domani, 09:30', price: '€38', clinic: 'Centro Riabilitativo Bari', distance: '1.0 km' }
+        ];
+
+        function normalizeText(value) {
+            return String(value || '')
+                .trim()
+                .toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '');
+        }
+
+        function renderQuickSpecialties() {
+            const container = document.getElementById('specialties-quick-container');
+            if (!container) return;
+
+            container.innerHTML = '';
+            SPECIALTIES.forEach((specialty) => {
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-600 border border-slate-200/80 transition text-left text-xs text-slate-700';
+                button.addEventListener('click', () => fillSpecialty(specialty.name));
+
+                const icon = document.createElement('span');
+                icon.className = 'text-base leading-none';
+                icon.textContent = specialty.icon;
+
+                const label = document.createElement('span');
+                label.className = 'truncate';
+                label.textContent = specialty.name;
+
+                button.append(icon, label);
+                container.appendChild(button);
+            });
+        }
+
+        function renderQuickCities() {
+            const container = document.getElementById('cities-quick-container');
+            if (!container) return;
+
+            container.innerHTML = '';
+            ALL_CAPITALS_FLAT.forEach((city) => {
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-600 border border-slate-200/60 transition';
+                button.addEventListener('click', () => fillCity(city));
+
+                const icon = document.createElement('i');
+                icon.className = 'fa-solid fa-location-dot text-slate-400 text-[10px]';
+
+                const label = document.createElement('span');
+                label.textContent = city;
+
+                button.append(icon, label);
+                container.appendChild(button);
+            });
+        }
+
+        function renderSpecialtyMatches(value) {
+            const container = document.getElementById('specialty-autocomplete');
+            if (!container) return;
+
+            const query = normalizeText(value);
+            const matches = query
+                ? SPECIALTIES.filter((specialty) => normalizeText(specialty.name).includes(query))
+                : SPECIALTIES.slice(0, 8);
+
+            if (!matches.length) {
+                container.classList.add('hidden');
+                container.innerHTML = '';
+                return;
+            }
+
+            container.innerHTML = '';
+            matches.slice(0, 10).forEach((specialty) => {
+                const row = document.createElement('div');
+                row.className = 'px-4 py-2 hover:bg-skybrand-50 text-sm text-slate-700 cursor-pointer flex items-center gap-2.5';
+                row.addEventListener('click', () => selectAutocomplete('specialty-input', specialty.name, 'specialty-autocomplete'));
+
+                const icon = document.createElement('span');
+                icon.className = 'text-base';
+                icon.textContent = specialty.icon;
+
+                const label = document.createElement('span');
+                label.textContent = specialty.name;
+
+                row.append(icon, label);
+                container.appendChild(row);
+            });
+
+            container.classList.remove('hidden');
+        }
+
+        function renderLocationMatches(value) {
+            const container = document.getElementById('location-autocomplete');
+            if (!container) return;
+
+            const query = normalizeText(value);
+            const matches = query
+                ? ALL_CAPITALS_FLAT.filter((city) => normalizeText(city).includes(query))
+                : ALL_CAPITALS_FLAT.slice(0, 8);
+
+            if (!matches.length) {
+                container.classList.add('hidden');
+                container.innerHTML = '';
+                return;
+            }
+
+            container.innerHTML = '';
+            matches.slice(0, 10).forEach((city) => {
+                const row = document.createElement('div');
+                row.className = 'px-4 py-2 hover:bg-skybrand-50 text-sm text-slate-700 cursor-pointer flex items-center gap-2.5';
+                row.addEventListener('click', () => selectAutocomplete('location-input', city, 'location-autocomplete'));
+
+                const icon = document.createElement('i');
+                icon.className = 'fa-solid fa-location-dot text-skybrand-500 text-xs w-4 text-center';
+
+                const label = document.createElement('span');
+                label.textContent = city;
+
+                row.append(icon, label);
+                container.appendChild(row);
+            });
+
+            container.classList.remove('hidden');
+        }
+
+        function setupAutocomplete() {
+            const specInput = document.getElementById('specialty-input');
+            const specAuto = document.getElementById('specialty-autocomplete');
+            const locInput = document.getElementById('location-input');
+            const locAuto = document.getElementById('location-autocomplete');
+
+            if (!specInput || !locInput || !specAuto || !locAuto) return;
+
+            specInput.addEventListener('focus', () => {
+                if (state.isAutoSelecting) return;
+                renderSpecialtyMatches(specInput.value);
+            });
+
+            specInput.addEventListener('input', () => {
+                if (state.isAutoSelecting) return;
+                renderSpecialtyMatches(specInput.value);
+            });
+
+            locInput.addEventListener('focus', () => {
+                if (state.isAutoSelecting) return;
+                renderLocationMatches(locInput.value);
+            });
+
+            locInput.addEventListener('input', () => {
+                if (state.isAutoSelecting) return;
+                renderLocationMatches(locInput.value);
+            });
+
+            document.addEventListener('click', (event) => {
+                const target = event.target;
+
+                if (target instanceof Node && !specInput.contains(target) && !specAuto.contains(target)) {
+                    specAuto.classList.add('hidden');
+                }
+
+                if (target instanceof Node && !locInput.contains(target) && !locAuto.contains(target)) {
+                    locAuto.classList.add('hidden');
+                }
+
+                const regContainer = document.getElementById('register-dropdown-container');
+                const proContainer = document.getElementById('pro-dropdown-container');
+                const registerDropdown = document.getElementById('register-dropdown');
+                const proDropdown = document.getElementById('pro-dropdown');
+
+                if (regContainer && registerDropdown && target instanceof Node && !regContainer.contains(target)) {
+                    registerDropdown.classList.add('hidden');
+                }
+
+                if (proContainer && proDropdown && target instanceof Node && !proContainer.contains(target)) {
+                    proDropdown.classList.add('hidden');
+                }
+            });
+        }
+
+        function selectAutocomplete(inputId, value, autoId) {
+            const input = document.getElementById(inputId);
+            const auto = document.getElementById(autoId);
+            if (!input || !auto) return;
+
+            input.value = value;
+            auto.classList.add('hidden');
+
+            if (inputId === 'specialty-input') {
+                const nextInput = document.getElementById('location-input');
+                if (nextInput && !nextInput.value.trim()) {
+                    state.isAutoSelecting = true;
+                    nextInput.focus();
+                    renderLocationMatches('');
+                    window.setTimeout(() => { state.isAutoSelecting = false; }, 200);
+                }
+            } else if (inputId === 'location-input') {
+                const nextInput = document.getElementById('specialty-input');
+                if (nextInput && !nextInput.value.trim()) {
+                    state.isAutoSelecting = true;
+                    nextInput.focus();
+                    renderSpecialtyMatches('');
+                    window.setTimeout(() => { state.isAutoSelecting = false; }, 200);
+                }
+            }
+        }
+
+        function quickSearch(specialty, location) {
+            showHomeView();
+
+            const specialtyInput = document.getElementById('specialty-input');
+            const locationInput = document.getElementById('location-input');
+            if (!specialtyInput || !locationInput) return;
+
+            if (typeof specialty === 'string' && specialty.trim()) {
+                specialtyInput.value = specialty.trim();
+            }
+            if (typeof location === 'string' && location.trim()) {
+                locationInput.value = location.trim();
+            }
+
+            const currentSpec = specialtyInput.value.trim();
+            const currentLoc = locationInput.value.trim();
+
+            if (currentSpec && !currentLoc) {
+                locationInput.focus();
+                renderLocationMatches('');
+                return;
+            }
+
+            if (!currentSpec && currentLoc) {
+                specialtyInput.focus();
+                renderSpecialtyMatches('');
+                return;
+            }
+
+            if (currentSpec && currentLoc) {
+                executeSearch(currentSpec, currentLoc);
+            }
+        }
+
+        function clearSearchInputs() {
+            const specialtyInput = document.getElementById('specialty-input');
+            const locationInput = document.getElementById('location-input');
+            const specAuto = document.getElementById('specialty-autocomplete');
+            const locAuto = document.getElementById('location-autocomplete');
+
+            if (specialtyInput) specialtyInput.value = '';
+            if (locationInput) locationInput.value = '';
+            if (specAuto) specAuto.classList.add('hidden');
+            if (locAuto) locAuto.classList.add('hidden');
+        }
+
+        function fillSpecialty(value) {
+            showHomeView();
+            selectAutocomplete('specialty-input', value, 'specialty-autocomplete');
+        }
+
+        function fillCity(value) {
+            showHomeView();
+            selectAutocomplete('location-input', value, 'location-autocomplete');
+        }
+
+        function focusSearch(inputId) {
+            showHomeView();
+            const el = document.getElementById(inputId);
+            if (!el) return;
+            el.focus();
+            if (inputId === 'specialty-input') renderSpecialtyMatches(el.value);
+            if (inputId === 'location-input') renderLocationMatches(el.value);
+        }
+
+        function toggleDropdown(dropdownId) {
+            const dropdown = document.getElementById(dropdownId);
+            if (!dropdown) return;
+            const isHidden = dropdown.classList.contains('hidden');
+
+            document.getElementById('register-dropdown')?.classList.add('hidden');
+            document.getElementById('pro-dropdown')?.classList.add('hidden');
+
+            if (isHidden) {
+                dropdown.classList.remove('hidden');
+            }
+        }
+
+        function getDoctorMatches(specialty = '', location = '') {
+            const specQuery = normalizeText(specialty);
+            const locQuery = normalizeText(location);
+
+            return DOCTORS.filter((doctor) => {
+                const specialtyMatches = !specQuery || normalizeText(doctor.specialty).includes(specQuery);
+                const cityMatches = !locQuery || normalizeText(doctor.city).includes(locQuery);
+                return specialtyMatches && cityMatches;
+            });
+        }
+
+        function renderDoctorCards(doctors) {
+            const grid = document.getElementById('results-grid');
+            if (!grid) return;
+
+            grid.innerHTML = '';
+
+            doctors.forEach((doctor) => {
+                const card = document.createElement('article');
+                card.className = 'bg-white border border-slate-200 rounded-2xl p-5 shadow-sm hover:shadow-md transition';
+
+                const top = document.createElement('div');
+                top.className = 'flex items-start justify-between gap-4';
+
+                const info = document.createElement('div');
+                info.className = 'flex items-start gap-3';
+
+                const avatar = document.createElement('div');
+                avatar.className = 'w-12 h-12 rounded-2xl bg-skybrand-100 text-skybrand-700 flex items-center justify-center font-bold text-sm';
+                avatar.textContent = doctor.name.split(' ').map((part) => part[0]).slice(0, 2).join('').toUpperCase();
+
+                const meta = document.createElement('div');
+                meta.className = 'min-w-0';
+
+                const name = document.createElement('h3');
+                name.className = 'font-bold text-slate-900 text-base';
+                name.textContent = doctor.name;
+
+                const specialtyRow = document.createElement('div');
+                specialtyRow.className = 'flex items-center gap-2 mt-1 text-sm text-slate-600';
+
+                const specialtyIcon = document.createElement('span');
+                specialtyIcon.textContent = ICON_MAP[doctor.specialty] || '🩺';
+
+                const specialty = document.createElement('span');
+                specialty.textContent = doctor.specialty;
+
+                specialtyRow.append(specialtyIcon, specialty);
+                meta.append(name, specialtyRow);
+                info.append(avatar, meta);
+
+                const price = document.createElement('div');
+                price.className = 'text-right';
+
+                const priceValue = document.createElement('div');
+                priceValue.className = 'text-lg font-bold text-skybrand-600';
+                priceValue.textContent = doctor.price;
+
+                const priceLabel = document.createElement('div');
+                priceLabel.className = 'text-[11px] text-slate-400';
+                priceLabel.textContent = 'da';
+
+                price.append(priceValue, priceLabel);
+                top.append(info, price);
+
+                const ratingRow = document.createElement('div');
+                ratingRow.className = 'mt-4 flex items-center justify-between gap-4 text-xs text-slate-500';
+
+                const ratingLeft = document.createElement('div');
+                ratingLeft.className = 'flex items-center gap-2';
+
+                const stars = document.createElement('span');
+                stars.className = 'text-amber-400';
+                stars.textContent = '★★★★★';
+
+                const ratingText = document.createElement('span');
+                ratingText.textContent = `${doctor.rating.toFixed(1)} · ${doctor.reviews} recensioni`;
+
+                ratingLeft.append(stars, ratingText);
+
+                const distance = document.createElement('span');
+                distance.textContent = doctor.distance;
+
+                ratingRow.append(ratingLeft, distance);
+
+                const locationRow = document.createElement('div');
+                locationRow.className = 'mt-3 flex flex-wrap items-center gap-2 text-xs text-slate-600';
+
+                const cityPill = document.createElement('span');
+                cityPill.className = 'inline-flex items-center gap-1.5 bg-slate-100 text-slate-700 rounded-full px-2.5 py-1';
+                cityPill.innerHTML = '<i class=\"fa-solid fa-location-dot text-skybrand-500 text-[10px]\"></i>' + doctor.city;
+
+                const clinic = document.createElement('span');
+                clinic.className = 'text-slate-500';
+                clinic.textContent = doctor.clinic;
+
+                locationRow.append(cityPill, clinic);
+
+                const slots = document.createElement('div');
+                slots.className = 'mt-4 flex items-center justify-between gap-2 bg-skybrand-50 rounded-xl px-3 py-2 border border-skybrand-100';
+
+                const slotInfo = document.createElement('div');
+                slotInfo.className = 'text-xs text-slate-600';
+
+                const slotLabel = document.createElement('div');
+                slotLabel.className = 'font-semibold text-skybrand-700';
+                slotLabel.textContent = 'Disponibilità';
+
+                const slotTime = document.createElement('div');
+                slotTime.textContent = doctor.nextSlot;
+                slotInfo.append(slotLabel, slotTime);
+
+                const action = document.createElement('button');
+                action.type = 'button';
+                action.className = 'px-3 py-2 bg-skybrand-500 hover:bg-skybrand-600 text-white text-xs font-semibold rounded-lg transition';
+                action.textContent = 'Prenota';
+                action.addEventListener('click', () => {
+                    alert(`Prenotazione selezionata per ${doctor.name} · ${doctor.city}`);
+                });
+
+                slots.append(slotInfo, action);
+                card.append(top, ratingRow, locationRow, slots);
+                grid.appendChild(card);
+            });
+        }
+
+        function executeSearch(specialty, location) {
+            const normalizedSpecialty = (specialty || '').trim();
+            const normalizedLocation = (location || '').trim();
+            const matches = getDoctorMatches(normalizedSpecialty, normalizedLocation);
+
+            const queryParts = [];
+            if (normalizedSpecialty) queryParts.push(`Specializzazione: ${normalizedSpecialty}`);
+            if (normalizedLocation) queryParts.push(`Città: ${normalizedLocation}`);
+
+            const summaryText = queryParts.length > 0 ? queryParts.join(' | ') : 'Tutti i medici in Italia';
+
+            const resultsTitle = document.getElementById('results-title');
+            const activeSearchText = document.getElementById('active-search-text');
+            const searchSummary = document.getElementById('search-query-summary');
+
+            if (resultsTitle) resultsTitle.textContent = normalizedSpecialty || 'Medici Specialisti';
+            if (activeSearchText) activeSearchText.textContent = summaryText;
+            if (searchSummary) searchSummary.textContent = summaryText;
+
+            const noResultsState = document.getElementById('no-results-state');
+            const resultsGrid = document.getElementById('results-grid');
+
+            if (noResultsState) noResultsState.classList.toggle('hidden', matches.length > 0);
+            if (resultsGrid) {
+                resultsGrid.innerHTML = '';
+                if (matches.length > 0) {
+                    renderDoctorCards(matches);
+                }
+            }
+
+            document.getElementById('home-view')?.classList.add('hidden');
+            document.getElementById('results-view')?.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showHomeView() {
+            document.getElementById('results-view')?.classList.add('hidden');
+            document.getElementById('home-view')?.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function handleSearch(event) {
+            event.preventDefault();
+            const specialty = document.getElementById('specialty-input')?.value.trim() || '';
+            const location = document.getElementById('location-input')?.value.trim() || '';
+            executeSearch(specialty, location);
+        }
+
+        function init() {
+            setupAutocomplete();
+            renderQuickSpecialties();
+            renderQuickCities();
+
+            const searchForm = document.getElementById('search-form');
+            if (searchForm) {
+                searchForm.addEventListener('submit', handleSearch);
+            }
+
+            document.querySelectorAll('a[href="#"]').forEach((link) => {
+                link.addEventListener('click', (event) => {
+                    event.preventDefault();
+                });
+            });
+        }
+
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
