@@ -46,7 +46,7 @@
     <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
             <a href="#" onclick="showHomeView(); return false;" class="flex items-center gap-3 group">
-                <img src="logo.png" alt="Pronto Click Dottore Logo" class="h-16 md:h-20 w-auto object-contain mix-blend-multiply">
+                <img src="logo.png" alt="Pronto Click Dottore Logo" class="w-36 md:w-48 h-auto object-contain mix-blend-multiply">
             </a>
 
             <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-700">
@@ -74,7 +74,7 @@
                 <a href="#" class="hover:text-skybrand-600 transition font-medium">Login</a>
 
                 <div class="relative inline-block text-left" id="pro-dropdown-container">
-                    <button type="button" onclick="toggleDropdown('pro-dropdown')" class="flex items-center gap-1.5 px-4 py-2 rounded-full border border-slate-300 bg-white hover:border-skybrand-400 text-slate-800 transition">
+                    <button type="button" onclick="toggleDropdown('pro-dropdown')" class="flex items-center gap-1.5 px-4 py-2 rounded-full border border-slate-300 bg-white hover:border-skybrand-40[...]
                         <span>Sei un Professionista sanitario?</span>
                         <i class="fa-solid fa-chevron-down text-xs text-slate-500"></i>
                     </button>
@@ -108,22 +108,22 @@
                                 <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1 ml-3">Specializzazione o Medico</label>
                                 <div class="relative flex items-center">
                                     <i class="fa-solid fa-magnifying-glass text-slate-400 absolute left-3.5 text-base"></i>
-                                    <input type="text" id="specialty-input" placeholder="Es. Ginecologia e Ostetricia, Dermatologia, Cardiologia..." autocomplete="off" class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-skybrand-200 focus:border-skybrand-400 transition">
+                                    <input type="text" id="specialty-input" placeholder="Es. Ginecologia e Ostetricia, Dermatologia, Cardiologia..." autocomplete="off" class="w-full pl-10 pr-4 py[...]
                                 </div>
-                                <div id="specialty-autocomplete" class="hidden absolute left-0 right-0 top-full mt-2 bg-white rounded-xl shadow-xl border border-slate-200 max-h-60 overflow-y-auto z-50"></div>
+                                <div id="specialty-autocomplete" class="hidden absolute left-0 right-0 top-full mt-2 bg-white rounded-xl shadow-xl border border-slate-200 max-h-60 overflow-y-auto[...]
                             </div>
 
                             <div class="md:col-span-5 relative text-left">
                                 <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1 ml-3">Città o Capoluogo</label>
                                 <div class="relative flex items-center">
                                     <i class="fa-solid fa-location-dot text-slate-400 absolute left-3.5 text-base"></i>
-                                    <input type="text" id="location-input" placeholder="Es. Roma, Milano, Torino, Matera..." autocomplete="off" class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-skybrand-200 focus:border-skybrand-400 transition">
+                                    <input type="text" id="location-input" placeholder="Es. Roma, Milano, Torino, Matera..." autocomplete="off" class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border [...]
                                 </div>
-                                <div id="location-autocomplete" class="hidden absolute left-0 right-0 top-full mt-2 bg-white rounded-xl shadow-xl border border-slate-200 max-h-60 overflow-y-auto z-50"></div>
+                                <div id="location-autocomplete" class="hidden absolute left-0 right-0 top-full mt-2 bg-white rounded-xl shadow-xl border border-slate-200 max-h-60 overflow-y-auto [...]
                             </div>
 
                             <div class="md:col-span-2 flex items-end">
-                                <button type="submit" class="w-full h-[42px] bg-skybrand-500 hover:bg-skybrand-600 text-white font-semibold rounded-xl transition flex items-center justify-center gap-2 shadow-md shadow-skybrand-500/20">
+                                <button type="submit" class="w-full h-[42px] bg-skybrand-500 hover:bg-skybrand-600 text-white font-semibold rounded-xl transition flex items-center justify-center [...]
                                     <i class="fa-solid fa-magnifying-glass"></i>
                                     <span>Cerca</span>
                                 </button>
@@ -147,12 +147,12 @@
                             <i class="fa-solid fa-stethoscope text-skybrand-500"></i> Prestazioni e Trattamenti Frequenti
                         </h3>
                         <div class="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-slate-700">
-                            <button type="button" onclick="fillSpecialty('Blefaroplastica')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-600 border border-slate-200 transition"><span>👁️</span> <span>Blefaroplastica</span></button>
-                            <button type="button" onclick="fillSpecialty('Colposcopia')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-600 border border-slate-200 transition"><span>🔬</span> <span>Colposcopia</span></button>
-                            <button type="button" onclick="fillSpecialty('Mindfulness')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-600 border border-slate-200 transition"><span>🧠</span> <span>Mindfulness</span></button>
-                            <button type="button" onclick="fillSpecialty('Ecografia addome completo')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-600 border border-slate-200 transition"><span>📡</span> <span>Ecografia addome completo</span></button>
-                            <button type="button" onclick="fillSpecialty('Dieta chetogenica')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-600 border border-slate-200 transition"><span>🥗</span> <span>Dieta chetogenica</span></button>
-                            <button type="button" onclick="fillSpecialty('Faccette dentali')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-600 border border-slate-200 transition"><span>🦷</span> <span>Faccette dentali</span></button>
+                            <button type="button" onclick="fillSpecialty('Blefaroplastica')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:te[...]
+                            <button type="button" onclick="fillSpecialty('Colposcopia')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-s[...]
+                            <button type="button" onclick="fillSpecialty('Mindfulness')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-s[...]
+                            <button type="button" onclick="fillSpecialty('Ecografia addome completo')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-5[...]
+                            <button type="button" onclick="fillSpecialty('Dieta chetogenica')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:[...]
+                            <button type="button" onclick="fillSpecialty('Faccette dentali')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:t[...]
                             <button type="button" onclick="focusSearch('specialty-input')" class="text-skybrand-600 font-semibold underline hover:text-skybrand-700 ml-2">Altro</button>
                         </div>
                     </div>
@@ -184,7 +184,7 @@
                             </div>
                             <div>
                                 <h3 class="font-bold text-slate-900 text-base mb-1">Prenota una visita: è facile e gratuito!</h3>
-                                <p class="text-slate-500 text-xs leading-relaxed">Scegli la data che preferisci, inserisci i tuoi dati e conferma... la visita è prenotata! Non comporta costi aggiuntivi.</p>
+                                <p class="text-slate-500 text-xs leading-relaxed">Scegli la data che preferisci, inserisci i tuoi dati e conferma... la visita è prenotata! Non comporta costi agg[...]
                             </div>
                         </div>
                         <div class="flex gap-4">
@@ -242,7 +242,7 @@
                 <p class="text-slate-500 text-sm mb-6 leading-relaxed">
                     Prova una specializzazione diversa oppure cambia la città per trovare un medico disponibile nella tua area.
                 </p>
-                <button type="button" onclick="showHomeView()" class="px-5 py-2.5 bg-skybrand-500 hover:bg-skybrand-600 text-white font-medium text-sm rounded-xl transition shadow-md shadow-skybrand-500/20">
+                <button type="button" onclick="showHomeView()" class="px-5 py-2.5 bg-skybrand-500 hover:bg-skybrand-600 text-white font-medium text-sm rounded-xl transition shadow-md shadow-skybr[...]
                     Effettua un'altra ricerca
                 </button>
             </div>
@@ -254,7 +254,7 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
                 <div>
                     <div class="flex items-center gap-2 mb-3">
-                        <img src="logo.png" alt="Pronto Click Dottore Logo" class="h-16 w-auto object-contain brightness-0 invert opacity-90">
+                        <img src="logo.png" alt="Pronto Click Dottore Logo" class="w-36 md:w-48 h-auto object-contain brightness-0 invert opacity-90">
                     </div>
                     <p class="text-xs text-slate-500 leading-relaxed">Piattaforma sanitaria di prenotazione visite mediche ed esami specialistici in tutta Italia.</p>
                 </div>
@@ -331,7 +331,7 @@
             Basilicata: ['Matera', 'Potenza'],
             Calabria: ['Catanzaro', 'Cosenza', 'Crotone', 'Reggio Calabria', 'Vibo Valentia'],
             Campania: ['Avellino', 'Benevento', 'Caserta', 'Napoli', 'Salerno'],
-            'Emilia-Romagna': ['Bologna', 'Cesena', 'Ferrara', 'Forlì', 'Modena', 'Parma', 'Piacenza', 'Ravenna', 'Reggio Emilia', 'Rimini'],
+            'Emilia-Romagna': ['Bologna', 'Cesena', 'Ferrara', 'Forl\'\u00ec', 'Modena', 'Parma', 'Piacenza', 'Ravenna', 'Reggio Emilia', 'Rimini'],
             'Friuli-Venezia Giulia': ['Gorizia', 'Pordenone', 'Trieste', 'Udine'],
             Lazio: ['Frosinone', 'Latina', 'Rieti', 'Roma', 'Viterbo'],
             Liguria: ['Genova', 'Imperia', 'La Spezia', 'Savona'],
@@ -352,12 +352,12 @@
         const ALL_CAPITALS_FLAT = Object.values(REGIONAL_CAPITALS).flat();
 
         const DOCTORS = [
-            { id: 1, name: 'Dott.ssa Elena Rossi', specialty: 'Ginecologia e Ostetricia', city: 'Roma', rating: 4.9, reviews: 312, nextSlot: 'Oggi, 15:30', price: '€45', clinic: 'Centro Medico Roma Sud', distance: '1.2 km' },
-            { id: 2, name: 'Dott. Marco Bianchi', specialty: 'Cardiologia', city: 'Milano', rating: 4.8, reviews: 286, nextSlot: 'Domani, 09:15', price: '€60', clinic: 'Policlinico San Marco', distance: '2.4 km' }
+            { id: 1, name: 'Dott.ssa Elena Rossi', specialty: 'Ginecologia e Ostetricia', city: 'Roma', rating: 4.9, reviews: 312, nextSlot: 'Oggi, 15:30', price: '€45', clinic: 'Centro Medico [...]
+            { id: 2, name: 'Dott. Marco Bianchi', specialty: 'Cardiologia', city: 'Milano', rating: 4.8, reviews: 286, nextSlot: 'Domani, 09:15', price: '€60', clinic: 'Policlinico San Marco', [...]
         ];
 
         function normalizeText(value) {
-            return String(value || '').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+            return String(value || '').trim().toLowerCase().normalize('NFD').replace(/[^\u0300-\u036f]/g, '');
         }
 
         function renderQuickSpecialties() {
@@ -367,7 +367,7 @@
             SPECIALTIES.forEach((specialty) => {
                 const button = document.createElement('button');
                 button.type = 'button';
-                button.className = 'aspect-square flex flex-col items-center justify-center p-4 rounded-2xl bg-slate-50 hover:bg-skybrand-50 hover:border-skybrand-300 border border-slate-200 transition-all duration-200 shadow-sm hover:shadow-md group text-center';
+                button.className = 'aspect-square flex flex-col items-center justify-center p-4 rounded-2xl bg-slate-50 hover:bg-skybrand-50 hover:border-skybrand-300 border border-slate-200 tran[...]
                 button.addEventListener('click', () => fillSpecialty(specialty.name));
 
                 const icon = document.createElement('span');
