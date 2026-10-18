@@ -5,11 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pronto Click Dottore - Trova Specialisti e Prenota la Tua Visita</title>
 
-    <!-- Supabase configuration placeholders -->
-    <meta name="supabase-url" content="YOUR_SUPABASE_URL_HERE">
-    <meta name="supabase-key" content="YOUR_SUPABASE_ANON_KEY_HERE">
+    <meta name="supabase-url" content="https://ypkyyejpqwswtcmkcrct.supabase.co">
+    <meta name="supabase-key" content="sb_publishable_5JTXGieh9s6LeGQy99ET1Q_AKYq_80v">
 
-    <!-- FAVICON SCHEDA BROWSER -->
     <link rel="icon" type="image/png" href="logo.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -46,10 +44,6 @@
         const metaValue = (name) => document.querySelector(`meta[name="${name}"]`)?.getAttribute('content') || '';
         const SUPABASE_URL = metaValue('supabase-url');
         const SUPABASE_ANON_KEY = metaValue('supabase-key');
-
-        if (!SUPABASE_URL || !SUPABASE_ANON_KEY || SUPABASE_URL.includes('YOUR_') || SUPABASE_ANON_KEY.includes('YOUR_')) {
-            console.warn('Supabase URL and anon key are not configured. Set the values in the head meta tags or via your build process.');
-        }
 
         window.supabase = createClient(SUPABASE_URL || 'https://example.supabase.co', SUPABASE_ANON_KEY || 'public-anon-key');
     </script>
@@ -615,13 +609,7 @@
 
         async function fetchDoctorsFromSupabase(specialtyValue, locationValue) {
             if (!window.supabase) {
-                throw new Error('Supabase non inizializzato. Controlla i placeholder URL e anon key.');
-            }
-
-            const supabaseUrl = document.querySelector('meta[name="supabase-url"]')?.getAttribute('content') || '';
-            const supabaseKey = document.querySelector('meta[name="supabase-key"]')?.getAttribute('content') || '';
-            if (!supabaseUrl || !supabaseKey || supabaseUrl.includes('YOUR_') || supabaseKey.includes('YOUR_')) {
-                throw new Error('Configura SUPABASE_URL e SUPABASE_ANON_KEY nei meta tag del head.');
+                throw new Error('Supabase non inizializzato.');
             }
 
             const specialty = (specialtyValue || '').trim();
@@ -631,30 +619,20 @@
                 .from('doctors')
                 .select('id, name, specialty, city, rating, reviews, next_slot, price, clinic, distance');
 
-            if (specialty) query = query.ilike('specialty', `%${specialty}%`);
-            if (city) query = query.ilike('city', `%${city}%`);
+            if (specialty) {
+                query = query.ilike('specialty', `%${specialty}%`);
+            }
+            if (city) {
+                query = query.ilike('city', `%${city}%`);
+            }
 
             if (!specialty && !city) {
-                query = query.limit(50).order('rating', { ascending: false });
+                query = query.order('rating', { ascending: false }).limit(50);
             }
 
             const { data, error } = await query;
             if (error) throw error;
             return data || [];
-        }
-
-        function showToast(message) {
-            let toast = document.getElementById('auth-toast');
-            if (!toast) {
-                toast = document.createElement('div');
-                toast.id = 'auth-toast';
-                toast.className = 'fixed bottom-5 right-5 z-[100] rounded-xl bg-slate-900 text-white px-4 py-2 text-sm shadow-xl';
-                document.body.appendChild(toast);
-            }
-            toast.textContent = message;
-            toast.classList.remove('hidden');
-            clearTimeout(showToast.timer);
-            showToast.timer = setTimeout(() => toast.classList.add('hidden'), 3000);
         }
 
         function openAuthModal(mode = 'login') {
@@ -702,79 +680,23 @@
                     }
                     modal.remove();
                 } catch (error) {
-                    showToast(error.message || 'Errore autenticazione');
+                    alert(error.message || 'Errore autenticazione');
                 }
             });
         }
 
         async function signUpWithSupabase(email, password) {
-            if (!window.supabase) {
-                throw new Error('Supabase non inizializzato.');
-            }
             const { data, error } = await window.supabase.auth.signUp({ email, password });
             if (error) throw error;
-            showToast('Registrazione completata. Controlla la tua email per verificare l\'account.');
+            alert('Registrazione completata. Controlla la tua email per verificare l\'account.');
             return data;
         }
 
         async function signInWithSupabase(email, password) {
-            if (!window.supabase) {
-                throw new Error('Supabase non inizializzato.');
-            }
             const { data, error } = await window.supabase.auth.signInWithPassword({ email, password });
             if (error) throw error;
-            showToast('Accesso eseguito con successo.');
+            alert('Accesso eseguito con successo.');
             return data;
-        }
-
-        async function signOutFromSupabase() {
-            if (!window.supabase) return;
-            const { error } = await window.supabase.auth.signOut();
-            if (error) {
-                console.error(error);
-                showToast('Errore nel logout.');
-                return;
-            }
-            showToast('Logout effettuato.');
-            updateAuthState();
-        }
-
-        function updateAuthState() {
-            const loginLink = document.getElementById('login-link');
-            const registerButton = document.querySelector('#register-dropdown-container button');
-            if (!loginLink || !registerButton) return;
-
-            const existingStatus = document.getElementById('auth-user-status');
-            if (existingStatus) existingStatus.remove();
-
-            const existingLogout = document.getElementById('auth-logout-button');
-            if (existingLogout) existingLogout.remove();
-
-            if (window.supabase && window.supabase.auth && window.supabase.auth.getSession) {
-                window.supabase.auth.getSession().then(({ data: { session } }) => {
-                    if (session && session.user) {
-                        const email = session.user.email || 'Account';
-                        const status = document.createElement('span');
-                        status.id = 'auth-user-status';
-                        status.className = 'text-xs font-medium text-slate-700';
-                        status.textContent = email;
-                        loginLink.insertAdjacentElement('afterend', status);
-                        loginLink.classList.add('hidden');
-                        registerButton.classList.add('hidden');
-
-                        const logoutButton = document.createElement('button');
-                        logoutButton.id = 'auth-logout-button';
-                        logoutButton.type = 'button';
-                        logoutButton.className = 'text-xs font-medium text-slate-700 hover:text-skybrand-600 transition';
-                        logoutButton.textContent = 'Logout';
-                        logoutButton.onclick = signOutFromSupabase;
-                        status.insertAdjacentElement('afterend', logoutButton);
-                    } else {
-                        loginLink.classList.remove('hidden');
-                        registerButton.classList.remove('hidden');
-                    }
-                });
-            }
         }
 
         function setupAuthLinks() {
@@ -802,11 +724,6 @@
                     openAuthModal('signup');
                 });
             });
-
-            updateAuthState();
-            if (window.supabase && window.supabase.auth && window.supabase.auth.onAuthStateChange) {
-                window.supabase.auth.onAuthStateChange(() => updateAuthState());
-            }
         }
 
         function setupSearchForm() {
@@ -835,7 +752,7 @@
                     if (resultsGrid) {
                         resultsGrid.innerHTML = `<div class="col-span-full bg-red-50 border border-red-200 text-red-700 rounded-xl p-4">${error.message || 'Si è verificato un errore durante la ricerca.'}</div>`;
                     }
-                    showToast(error.message || 'Si è verificato un errore.');
+                    alert(error.message || 'Si è verificato un errore.');
                 }
             });
         }
