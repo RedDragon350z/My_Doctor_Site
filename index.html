@@ -564,20 +564,22 @@
 
             noResultsState?.classList.add('hidden');
             resultsGrid.innerHTML = doctors.map((doctor) => {
-                const fullName = [doctor.name || doctor.first_name || '', doctor.surname || doctor.last_name || ''].filter(Boolean).join(' ') || doctor.doctor_name || 'Medico';
-                const specialtyLabel = doctor.specialty || doctor.specialization || doctor.specializzazione || 'Medico';
-                const cityLabel = doctor.city || doctor.capoluogo || doctor.citta || doctor.location || 'Italia';
-                const clinicLabel = doctor.clinic || doctor.clinica || doctor.practice || 'Studio medico';
-                const photo = doctor.photo || doctor.avatar_url || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80';
-                const rating = doctor.rating || 4.8;
-                const reviews = doctor.reviews || doctor.review_count || 0;
-                const nextSlot = doctor.next_slot || doctor.nextSlot || 'Disponibile oggi';
-                const price = doctor.price || doctor.consultation_price || '€';
+                const fullName = [doctor.name || ''].filter(Boolean).join(' ');
+                const specialtyLabel = doctor.specialty || 'Medico';
+                const cityLabel = doctor.city || 'Italia';
+                const clinicLabel = doctor.clinic || 'Studio medico';
+                const rating = Number(doctor.rating || 5.0);
+                const reviews = Number(doctor.reviews || 0);
+                const nextSlot = doctor.next_slot || 'Disponibile oggi';
+                const price = doctor.price || '€';
+                const distance = doctor.distance || 'N/D';
 
                 return `
                     <article class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
                         <div class="p-5 flex flex-col sm:flex-row gap-4">
-                            <img src="${photo}" alt="${fullName}" class="w-20 h-20 object-cover rounded-xl border border-slate-200">
+                            <div class="w-20 h-20 rounded-xl bg-gradient-to-br from-skybrand-100 to-skybrand-50 border border-slate-200 flex items-center justify-center text-3xl text-skybrand-600 shadow-sm">
+                                <i class="fa-solid fa-user-doctor"></i>
+                            </div>
                             <div class="flex-1 min-w-0">
                                 <div class="flex items-start justify-between gap-3">
                                     <div>
@@ -586,7 +588,7 @@
                                     </div>
                                     <div class="flex items-center gap-1 text-xs font-semibold text-amber-600 bg-amber-50 px-2 py-1 rounded-full">
                                         <i class="fa-solid fa-star"></i>
-                                        <span>${Number(rating).toFixed(1)}</span>
+                                        <span>${rating.toFixed(1)}</span>
                                         <span class="text-slate-500 font-normal">(${reviews})</span>
                                     </div>
                                 </div>
@@ -595,6 +597,7 @@
                                     <div class="flex items-center gap-2"><i class="fa-solid fa-location-dot text-skybrand-500 w-4"></i> <span>${cityLabel}</span></div>
                                     <div class="flex items-center gap-2"><i class="fa-solid fa-hospital text-skybrand-500 w-4"></i> <span>${clinicLabel}</span></div>
                                     <div class="flex items-center gap-2"><i class="fa-solid fa-calendar-day text-skybrand-500 w-4"></i> <span>${nextSlot}</span></div>
+                                    <div class="flex items-center gap-2"><i class="fa-solid fa-route text-skybrand-500 w-4"></i> <span>${distance}</span></div>
                                 </div>
                             </div>
                         </div>
@@ -621,21 +624,23 @@
                 throw new Error('Configura SUPABASE_URL e SUPABASE_ANON_KEY nei meta tag del head.');
             }
 
-            const { data, error } = await window.supabase.from('doctors').select('*');
+            const specialty = (specialtyValue || '').trim();
+            const city = (locationValue || '').trim();
+
+            let query = window.supabase
+                .from('doctors')
+                .select('id, name, specialty, city, rating, reviews, next_slot, price, clinic, distance');
+
+            if (specialty) query = query.ilike('specialty', `%${specialty}%`);
+            if (city) query = query.ilike('city', `%${city}%`);
+
+            if (!specialty && !city) {
+                query = query.limit(50).order('rating', { ascending: false });
+            }
+
+            const { data, error } = await query;
             if (error) throw error;
-
-            const specialtyQuery = normalizeText(specialtyValue);
-            const cityQuery = normalizeText(locationValue);
-
-            return (data || []).filter((doctor) => {
-                const specialtyField = ['specialty', 'specialization', 'specializzazione', 'specialty_name'].find((field) => doctor[field] !== undefined && doctor[field] !== null && String(doctor[field]).trim() !== '');
-                const cityField = ['city', 'capoluogo', 'citta', 'location', 'city_name'].find((field) => doctor[field] !== undefined && doctor[field] !== null && String(doctor[field]).trim() !== '');
-
-                const matchesSpecialty = !specialtyQuery || !specialtyField || normalizeText(doctor[specialtyField]).includes(specialtyQuery);
-                const matchesCity = !cityQuery || !cityField || normalizeText(doctor[cityField]).includes(cityQuery);
-
-                return matchesSpecialty && matchesCity;
-            });
+            return data || [];
         }
 
         function showToast(message) {
@@ -735,10 +740,6 @@
         }
 
         function updateAuthState() {
-            const status = document.createElement('span');
-            status.id = 'auth-user-status';
-            status.className = 'text-xs font-medium text-slate-700';
-
             const loginLink = document.getElementById('login-link');
             const registerButton = document.querySelector('#register-dropdown-container button');
             if (!loginLink || !registerButton) return;
@@ -746,23 +747,28 @@
             const existingStatus = document.getElementById('auth-user-status');
             if (existingStatus) existingStatus.remove();
 
+            const existingLogout = document.getElementById('auth-logout-button');
+            if (existingLogout) existingLogout.remove();
+
             if (window.supabase && window.supabase.auth && window.supabase.auth.getSession) {
                 window.supabase.auth.getSession().then(({ data: { session } }) => {
                     if (session && session.user) {
                         const email = session.user.email || 'Account';
-                        const badge = document.createElement('span');
-                        badge.id = 'auth-user-status';
-                        badge.className = 'text-xs font-medium text-slate-700';
-                        badge.textContent = email;
-                        loginLink.insertAdjacentElement('afterend', badge);
+                        const status = document.createElement('span');
+                        status.id = 'auth-user-status';
+                        status.className = 'text-xs font-medium text-slate-700';
+                        status.textContent = email;
+                        loginLink.insertAdjacentElement('afterend', status);
                         loginLink.classList.add('hidden');
                         registerButton.classList.add('hidden');
-                        const logoutLink = document.createElement('button');
-                        logoutLink.type = 'button';
-                        logoutLink.className = 'text-xs font-medium text-slate-700 hover:text-skybrand-600 transition';
-                        logoutLink.textContent = 'Logout';
-                        logoutLink.onclick = signOutFromSupabase;
-                        badge.insertAdjacentElement('afterend', logoutLink);
+
+                        const logoutButton = document.createElement('button');
+                        logoutButton.id = 'auth-logout-button';
+                        logoutButton.type = 'button';
+                        logoutButton.className = 'text-xs font-medium text-slate-700 hover:text-skybrand-600 transition';
+                        logoutButton.textContent = 'Logout';
+                        logoutButton.onclick = signOutFromSupabase;
+                        status.insertAdjacentElement('afterend', logoutButton);
                     } else {
                         loginLink.classList.remove('hidden');
                         registerButton.classList.remove('hidden');
@@ -798,7 +804,9 @@
             });
 
             updateAuthState();
-            window.supabase?.auth?.onAuthStateChange(() => updateAuthState());
+            if (window.supabase && window.supabase.auth && window.supabase.auth.onAuthStateChange) {
+                window.supabase.auth.onAuthStateChange(() => updateAuthState());
+            }
         }
 
         function setupSearchForm() {
