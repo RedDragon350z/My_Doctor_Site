@@ -61,15 +61,17 @@
             </a>
 
             <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-700">
-                <a href="#" class="hover:text-skybrand-600 transition">Trattamento dei dati</a>
-                <a href="#" class="hover:text-skybrand-600 transition">Chiedi al Dottore</a>
+                <a href="#business-flow" class="hover:text-skybrand-600 transition">Business flow</a>
+                <a href="#partner-hub" class="hover:text-skybrand-600 transition">Partner Service</a>
+                <a href="#registration-roles" class="hover:text-skybrand-600 transition">Registrazioni</a>
+                <a href="#monetization" class="hover:text-skybrand-600 transition">Abbonamenti</a>
 
                 <div class="relative inline-block text-left" id="register-dropdown-container">
                     <button type="button" onclick="toggleDropdown('register-dropdown')" class="flex items-center gap-1 hover:text-skybrand-600 transition font-medium focus:outline-none py-2">
                         <span>Registrati gratis</span>
                         <i class="fa-solid fa-chevron-down text-xs ml-0.5"></i>
                     </button>
-                    <div id="register-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-slate-200 py-2 z-50">
+                    <div id="register-dropdown" class="hidden absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-slate-200 py-2 z-50">
                         <a href="#" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-skybrand-50 hover:text-skybrand-600 transition">
                             <i class="fa-solid fa-user mr-2 text-skybrand-500"></i> Come Paziente
                         </a>
@@ -77,7 +79,10 @@
                             <i class="fa-solid fa-user-doctor mr-2 text-skybrand-500"></i> Come Dottore / MMG
                         </a>
                         <a href="#" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-skybrand-50 hover:text-skybrand-600 transition">
-                            <i class="fa-solid fa-hospital mr-2 text-skybrand-500"></i> Come Centro Medico
+                            <i class="fa-solid fa-pills mr-2 text-skybrand-500"></i> Partner Service
+                        </a>
+                        <a href="#" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-skybrand-50 hover:text-skybrand-600 transition">
+                            <i class="fa-solid fa-bullhorn mr-2 text-skybrand-500"></i> Promotore
                         </a>
                     </div>
                 </div>
@@ -85,7 +90,7 @@
                 <a href="#" class="hover:text-skybrand-600 transition font-medium" id="login-link">Login</a>
 
                 <div class="relative inline-block text-left" id="pro-dropdown-container">
-                    <button type="button" onclick="toggleDropdown('pro-dropdown')" class="flex items-center gap-1.5 px-4 py-2 rounded-full border border-slate-300 bg-white hover:border-skybrand-400 text-slate-800 transition">
+                    <button type="button" onclick="toggleDropdown('pro-dropdown')" class="flex items-center gap-1.5 px-4 py-2 rounded-full border border-slate-300 bg-white hover:border-skybrand-400 transition">
                         <span>Sei un Professionista sanitario?</span>
                         <i class="fa-solid fa-chevron-down text-xs text-slate-500"></i>
                     </button>
@@ -119,18 +124,18 @@
                                 <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1 ml-3">Specializzazione o Medico</label>
                                 <div class="relative flex items-center">
                                     <i class="fa-solid fa-magnifying-glass text-slate-400 absolute left-3.5 text-base"></i>
-                                    <input type="text" id="specialty-input" placeholder="Es. Ginecologia e Ostetricia, Dermatologia, Cardiologia..." autocomplete="off" class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-skybrand-200 focus:border-skybrand-400 transition">
+                                    <input type="text" id="specialty-input" placeholder="Es. Ginecologia e Ostetricia, Dermatologia, Cardiologia..." autocomplete="off" class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-skybrand-200 focus:border-skybrand-300 text-sm text-slate-800">
                                 </div>
-                                <div id="specialty-autocomplete" class="hidden absolute left-0 right-0 top-full mt-2 bg-white rounded-xl shadow-xl border border-slate-200 max-h-60 overflow-y-auto z-50"></div>
+                                <div id="specialty-autocomplete" class="hidden absolute left-0 right-0 top-full mt-2 bg-white rounded-xl shadow-xl border border-slate-200 max-h-60 overflow-y-auto z-40"></div>
                             </div>
 
                             <div class="md:col-span-5 relative text-left">
                                 <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1 ml-3">Città o Capoluogo</label>
                                 <div class="relative flex items-center">
                                     <i class="fa-solid fa-location-dot text-slate-400 absolute left-3.5 text-base"></i>
-                                    <input type="text" id="location-input" placeholder="Es. Roma, Milano, Torino, Matera..." autocomplete="off" class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-skybrand-200 focus:border-skybrand-400 transition">
+                                    <input type="text" id="location-input" placeholder="Es. Roma, Milano, Torino, Matera..." autocomplete="off" class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-skybrand-200 focus:border-skybrand-300 text-sm text-slate-800">
                                 </div>
-                                <div id="location-autocomplete" class="hidden absolute left-0 right-0 top-full mt-2 bg-white rounded-xl shadow-xl border border-slate-200 max-h-60 overflow-y-auto z-50"></div>
+                                <div id="location-autocomplete" class="hidden absolute left-0 right-0 top-full mt-2 bg-white rounded-xl shadow-xl border border-slate-200 max-h-60 overflow-y-auto z-40"></div>
                             </div>
 
                             <div class="md:col-span-2 flex items-end">
@@ -158,12 +163,12 @@
                             <i class="fa-solid fa-stethoscope text-skybrand-500"></i> Prestazioni e Trattamenti Frequenti
                         </h3>
                         <div class="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-slate-700">
-                            <button type="button" onclick="fillSpecialty('Blefaroplastica')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-600 border border-slate-200 transition"><span>👁️</span> <span>Blefaroplastica</span></button>
-                            <button type="button" onclick="fillSpecialty('Colposcopia')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-600 border border-slate-200 transition"><span>🔬</span> <span>Colposcopia</span></button>
-                            <button type="button" onclick="fillSpecialty('Mindfulness')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-600 border border-slate-200 transition"><span>🧠</span> <span>Mindfulness</span></button>
-                            <button type="button" onclick="fillSpecialty('Ecografia addome completo')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-600 border border-slate-200 transition"><span>📡</span> <span>Ecografia addome completo</span></button>
-                            <button type="button" onclick="fillSpecialty('Dieta chetogenica')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-600 border border-slate-200 transition"><span>🥗</span> <span>Dieta chetogenica</span></button>
-                            <button type="button" onclick="fillSpecialty('Faccette dentali')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-600 border border-slate-200 transition"><span>🦷</span> <span>Faccette dentali</span></button>
+                            <button type="button" onclick="fillSpecialty('Blefaroplastica')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-600 border border-slate-200 transition">👁️ Blefaroplastica</button>
+                            <button type="button" onclick="fillSpecialty('Colposcopia')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-600 border border-slate-200 transition">🔬 Colposcopia</button>
+                            <button type="button" onclick="fillSpecialty('Mindfulness')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-600 border border-slate-200 transition">🧠 Mindfulness</button>
+                            <button type="button" onclick="fillSpecialty('Ecografia addome completo')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-600 border border-slate-200 transition">📡 Ecografia addome completo</button>
+                            <button type="button" onclick="fillSpecialty('Dieta chetogenica')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-600 border border-slate-200 transition">🥗 Dieta chetogenica</button>
+                            <button type="button" onclick="fillSpecialty('Faccette dentali')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-600 border border-slate-200 transition">🦷 Faccette dentali</button>
                             <button type="button" onclick="focusSearch('specialty-input')" class="text-skybrand-600 font-semibold underline hover:text-skybrand-700 ml-2">Altro</button>
                         </div>
                     </div>
@@ -220,6 +225,172 @@
                 </div>
             </section>
         </div>
+
+        <section id="business-flow" class="bg-white py-16 border-b border-slate-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-8 text-center">
+                    <span class="inline-block text-xs font-bold uppercase tracking-[0.2em] text-skybrand-600">Business flow</span>
+                    <h2 class="mt-3 text-3xl font-extrabold text-slate-900">Flussi operativi Pronto Click Dottore</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <article class="bg-slate-50 border border-slate-200 rounded-3xl p-6 shadow-sm">
+                        <div class="w-12 h-12 rounded-2xl bg-skybrand-100 text-skybrand-700 flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-user-plus"></i></div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">1. Prenotazione cliente</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">Il paziente inserisce richiesta e dati di contatto. La piattaforma genera automaticamente una notifica a Pronto Click Dottore e la inoltra al medico specialistico scelto.</p>
+                    </article>
+                    <article class="bg-slate-50 border border-slate-200 rounded-3xl p-6 shadow-sm">
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-envelope-circle-check"></i></div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">2. Conferma medico</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">Quando il dottore risponde confermando la disponibilità, il sistema invia automaticamente l'esito al cliente e aggiorna lo stato della prenotazione in piattaforma.</p>
+                    </article>
+                    <article class="bg-slate-50 border border-slate-200 rounded-3xl p-6 shadow-sm">
+                        <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-clipboard-check"></i></div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">3. Gestione operativa</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed">Ogni richiesta viene tracciata con ID, dati del paziente, medico, data, canale di notifica e commissione associata per la gestione amministrativa e contabile.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="partner-hub" class="bg-slate-50 py-16 border-b border-slate-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-8 text-center">
+                    <span class="inline-block text-xs font-bold uppercase tracking-[0.2em] text-skybrand-600">Partner Service</span>
+                    <h2 class="mt-3 text-3xl font-extrabold text-slate-900">Hub per prenotazioni partner</h2>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-8">
+                    <div class="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
+                        <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2"><i class="fa-solid fa-hospital text-skybrand-500"></i> Prenotazione per conti dei clienti</h3>
+                        <form id="partner-booking-form" class="space-y-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Partner</label>
+                                    <select id="partner-type" class="w-full border border-slate-200 rounded-xl px-3 py-2.5 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-skybrand-200">
+                                        <option value="farmacia">Farmacia</option>
+                                        <option value="parafarmacia">Parafarmacia</option>
+                                        <option value="promotore">Promotore</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Specializzazione</label>
+                                    <select id="partner-specialty" class="w-full border border-slate-200 rounded-xl px-3 py-2.5 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-skybrand-200">
+                                        <option>Cardiologia</option>
+                                        <option>Dermatologia e Venereologia</option>
+                                        <option>Ginecologia e Ostetricia</option>
+                                        <option>Psicologia</option>
+                                        <option>Fisioterapia</option>
+                                        <option>Oculistica (Oftalmologia)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Nome paziente</label>
+                                    <input type="text" id="patient-name" placeholder="Mario Rossi" class="w-full border border-slate-200 rounded-xl px-3 py-2.5 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-skybrand-200">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Email</label>
+                                    <input type="email" id="patient-email" placeholder="mario.rossi@email.it" class="w-full border border-slate-200 rounded-xl px-3 py-2.5 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-skybrand-200">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Data visita</label>
+                                    <input type="date" id="partner-date" class="w-full border border-slate-200 rounded-xl px-3 py-2.5 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-skybrand-200">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Valore prestazione</label>
+                                    <input type="number" id="partner-price" value="140" min="0" step="5" class="w-full border border-slate-200 rounded-xl px-3 py-2.5 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-skybrand-200">
+                                </div>
+                            </div>
+                            <button type="submit" class="w-full bg-skybrand-500 hover:bg-skybrand-600 text-white font-semibold rounded-xl px-4 py-3 transition shadow-md shadow-skybrand-500/20">Registra prenotazione partner</button>
+                        </form>
+                    </div>
+
+                    <div class="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
+                        <h3 class="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2"><i class="fa-solid fa-percent text-skybrand-500"></i> Commissioni e riconoscimenti</h3>
+                        <div class="space-y-4" id="commission-preview">
+                            <div class="rounded-2xl bg-skybrand-50 p-4 border border-skybrand-100">
+                                <div class="flex items-center justify-between text-sm text-slate-600"><span>Totale prestazione</span><strong id="preview-total">€ 140,00</strong></div>
+                            </div>
+                            <div class="space-y-2 text-sm text-slate-700">
+                                <div class="flex items-center justify-between"><span>Commissione partner (10%)</span><strong id="preview-partner">€ 14,00</strong></div>
+                                <div class="flex items-center justify-between"><span>Riconoscimento piattaforma</span><strong id="preview-platform">€ 21,00</strong></div>
+                                <div class="flex items-center justify-between"><span>Riconoscimento promotore</span><strong id="preview-promoter">€ 7,00</strong></div>
+                                <div class="flex items-center justify-between"><span>Netto medico / farmacia</span><strong id="preview-doctor">€ 98,00</strong></div>
+                            </div>
+                        </div>
+                        <div class="mt-5 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-700">
+                            <strong>Regola standard:</strong> 10% di riconoscimento alla farmacia/parafarmacia o al sito per la prenotazione tramite hub, con distribuzione automatica delle quote operative.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="registration-roles" class="bg-white py-16 border-b border-slate-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-8 text-center">
+                    <span class="inline-block text-xs font-bold uppercase tracking-[0.2em] text-skybrand-600">Registrazioni</span>
+                    <h2 class="mt-3 text-3xl font-extrabold text-slate-900">Aree di registrazione e ruoli multipli</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <article class="bg-slate-50 border border-slate-200 rounded-3xl p-6 shadow-sm">
+                        <div class="w-12 h-12 rounded-2xl bg-skybrand-100 text-skybrand-700 flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-user"></i></div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Clienti</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed mb-4">Modulo di registrazione per i pazienti con dati personali, contatti e preferenze per gestire autonomamente prenotazioni e visite.</p>
+                        <button type="button" class="role-register-btn w-full bg-white border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 font-semibold hover:border-skybrand-300 hover:text-skybrand-700 transition" data-role="paziente">Registrati come cliente</button>
+                    </article>
+                    <article class="bg-slate-50 border border-slate-200 rounded-3xl p-6 shadow-sm">
+                        <div class="w-12 h-12 rounded-2xl bg-violet-100 text-violet-700 flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-user-doctor"></i></div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Medici e professionisti</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed mb-4">Area business dedicata con profilo, tariffe, specializzazioni, disponibilità e modelli di abbonamento mensile.</p>
+                        <button type="button" class="role-register-btn w-full bg-white border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 font-semibold hover:border-violet-300 hover:text-violet-700 transition" data-role="medico">Area medici</button>
+                    </article>
+                    <article class="bg-slate-50 border border-slate-200 rounded-3xl p-6 shadow-sm">
+                        <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-store"></i></div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">Partner Service & Promotori</h3>
+                        <p class="text-sm text-slate-600 leading-relaxed mb-4">Area dedicata a farmacie, parafarmacie e promotori con gestione dei dati anagrafici, commissioni e performance.</p>
+                        <button type="button" class="role-register-btn w-full bg-white border border-slate-200 text-slate-800 rounded-xl px-4 py-2.5 font-semibold hover:border-amber-300 hover:text-amber-700 transition" data-role="partner">Apri area partner</button>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="monetization" class="bg-slate-50 py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-8 text-center">
+                    <span class="inline-block text-xs font-bold uppercase tracking-[0.2em] text-skybrand-600">Monetizzazione</span>
+                    <h2 class="mt-3 text-3xl font-extrabold text-slate-900">Logica di abbonamento e prezzi</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <article class="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
+                        <div class="flex items-center justify-between mb-4"><h3 class="text-xl font-bold text-slate-900">Piano Base</h3><span class="bg-skybrand-100 text-skybrand-700 text-xs font-bold px-2 py-1 rounded-full uppercase">€20/mese</span></div>
+                        <ul class="text-sm text-slate-600 space-y-2">
+                            <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i>Profilo medico attivo</li>
+                            <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i>Gestione disponibilità</li>
+                            <li><i class="fa-solid fa-check text-emerald-500 mr-2"></i>Notifiche flusso prenotazione</li>
+                        </ul>
+                    </article>
+                    <article class="bg-skybrand-600 text-white border border-skybrand-600 rounded-3xl p-6 shadow-sm">
+                        <div class="flex items-center justify-between mb-4"><h3 class="text-xl font-bold">Piano Growth</h3><span class="bg-white/10 text-xs font-bold px-2 py-1 rounded-full uppercase">Ricavi %</span></div>
+                        <ul class="text-sm space-y-2 opacity-95">
+                            <li><i class="fa-solid fa-check mr-2"></i>Abbonamento base mensile</li>
+                            <li><i class="fa-solid fa-check mr-2"></i>Quota sulle prestazioni con split chiaro</li>
+                            <li><i class="fa-solid fa-check mr-2"></i>Dashboard partner e promotori</li>
+                        </ul>
+                    </article>
+                    <article class="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
+                        <div class="flex items-center justify-between mb-4"><h3 class="text-xl font-bold text-slate-900">Split prestazioni</h3><span class="bg-emerald-100 text-emerald-700 text-xs font-bold px-2 py-1 rounded-full uppercase">Standard</span></div>
+                        <ul class="text-sm text-slate-600 space-y-2">
+                            <li><i class="fa-solid fa-circle-dot text-skybrand-500 mr-2"></i>Promotore: 5%</li>
+                            <li><i class="fa-solid fa-circle-dot text-skybrand-500 mr-2"></i>Plataforma: 15%</li>
+                            <li><i class="fa-solid fa-circle-dot text-skybrand-500 mr-2"></i>Medico / farmacia: 80%</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
 
         <div id="results-view" class="hidden py-8 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
             <div class="flex items-center justify-between mb-6">
@@ -299,7 +470,15 @@
     </footer>
 
     <script>
-        const state = { isAutoSelecting: false };
+        const state = { isAutoSelecting: false, bookings: [], selectedDoctor: null };
+
+        const BUSINESS_MODEL = {
+            doctorPlanFeeMonthly: 20,
+            partnerCommissionRate: 0.10,
+            platformRate: 0.15,
+            promoterRate: 0.05,
+            doctorShareRate: 0.80,
+        };
 
         const ICON_MAP = {
             'Ginecologia e Ostetricia': '🤰', 'Cardiologia': '🫀', 'Odontoiatria e Dentisteria': '🦷', 'Oculistica (Oftalmologia)': '👁️',
@@ -366,6 +545,34 @@
             return String(value || '').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
         }
 
+        function money(value) {
+            return new Intl.NumberFormat('it-IT', {
+                style: 'currency',
+                currency: 'EUR',
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }).format(Number(value || 0));
+        }
+
+        function computeCommissionBreakdown(totalValue, partnerKind = 'farmacia', includePlanFee = false) {
+            const value = Number(totalValue || 0);
+            const partnerCommission = value * BUSINESS_MODEL.partnerCommissionRate;
+            const platformFee = value * BUSINESS_MODEL.platformRate;
+            const promoterFee = value * BUSINESS_MODEL.promoterRate;
+            const doctorShare = value - partnerCommission - platformFee - promoterFee;
+            const planFee = includePlanFee ? BUSINESS_MODEL.doctorPlanFeeMonthly : 0;
+            return {
+                total: value,
+                partnerCommission,
+                platformFee,
+                promoterFee,
+                doctorShare,
+                planFee,
+                netDoctor: doctorShare + planFee,
+                partnerKind
+            };
+        }
+
         function renderQuickSpecialties() {
             const container = document.getElementById('specialties-quick-container');
             if (!container) return;
@@ -373,7 +580,7 @@
             SPECIALTIES.forEach((specialty) => {
                 const button = document.createElement('button');
                 button.type = 'button';
-                button.className = 'aspect-square flex flex-col items-center justify-center p-4 rounded-2xl bg-slate-50 hover:bg-skybrand-50 hover:border-skybrand-300 border border-slate-200 transition-all duration-200 shadow-sm hover:shadow-md group text-center';
+                button.className = 'aspect-square flex flex-col items-center justify-center p-4 rounded-2xl bg-slate-50 hover:bg-skybrand-50 hover:border-skybrand-300 border border-slate-200 transition group';
                 button.addEventListener('click', () => fillSpecialty(specialty.name));
 
                 const icon = document.createElement('span');
@@ -567,11 +774,12 @@
                 const nextSlot = doctor.next_slot || 'Disponibile oggi';
                 const price = doctor.price || '€';
                 const distance = doctor.distance || 'N/D';
+                const safeDoctor = JSON.stringify(doctor).replace(/'/g, "&apos;");
 
                 return `
                     <article class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
                         <div class="p-5 flex flex-col sm:flex-row gap-4">
-                            <div class="w-20 h-20 rounded-xl bg-gradient-to-br from-skybrand-100 to-skybrand-50 border border-slate-200 flex items-center justify-center text-3xl text-skybrand-600 shadow-sm">
+                            <div class="w-20 h-20 rounded-xl bg-gradient-to-br from-skybrand-100 to-skybrand-50 border border-slate-200 flex items-center justify-center text-3xl text-skybrand-600">
                                 <i class="fa-solid fa-user-doctor"></i>
                             </div>
                             <div class="flex-1 min-w-0">
@@ -600,7 +808,7 @@
                                 <p class="text-xs uppercase tracking-wide text-slate-400">Da</p>
                                 <p class="text-lg font-bold text-slate-900">${price}</p>
                             </div>
-                            <button type="button" class="bg-skybrand-500 hover:bg-skybrand-600 text-white px-4 py-2.5 rounded-xl font-medium text-sm transition">Prenota visita</button>
+                            <button type="button" data-doctor='${safeDoctor}' class="book-doctor-btn bg-skybrand-500 hover:bg-skybrand-600 text-white px-4 py-2.5 rounded-xl font-medium text-sm transition">Prenota visita</button>
                         </div>
                     </article>
                 `;
@@ -635,7 +843,206 @@
             return data || [];
         }
 
-        function openAuthModal(mode = 'login') {
+        function openBookingModal(doctor) {
+            state.selectedDoctor = doctor;
+            const existing = document.getElementById('booking-flow-modal');
+            if (existing) existing.remove();
+
+            const modal = document.createElement('div');
+            modal.id = 'booking-flow-modal';
+            modal.className = 'fixed inset-0 z-[80] flex items-center justify-center p-4';
+            modal.innerHTML = `
+                <div class="absolute inset-0 bg-slate-950/50"></div>
+                <div class="relative w-full max-w-xl rounded-3xl bg-white p-6 shadow-2xl border border-slate-200">
+                    <div class="flex items-center justify-between mb-5">
+                        <div>
+                            <p class="text-xs uppercase tracking-[0.2em] text-skybrand-600 font-bold">Prenotazione automatica</p>
+                            <h3 class="text-2xl font-bold text-slate-900 mt-1">${doctor?.name || 'Medico'} </h3>
+                        </div>
+                        <button type="button" class="text-slate-500 hover:text-slate-700" data-close-booking>
+                            <i class="fa-solid fa-xmark text-lg"></i>
+                        </button>
+                    </div>
+
+                    <div class="rounded-2xl border border-skybrand-200 bg-skybrand-50 p-4 mb-5 text-sm text-slate-700">
+                        <div class="flex items-center justify-between"><span>Specializzazione</span><strong>${doctor?.specialty || 'Visita specialistica'}</strong></div>
+                        <div class="flex items-center justify-between mt-2"><span>Prezzo base</span><strong>${money(doctor?.price || 90)}</strong></div>
+                    </div>
+
+                    <form id="booking-flow-form" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Nome paziente</label>
+                                <input id="booking-patient-name" required class="w-full border border-slate-200 rounded-xl px-3 py-2.5 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-skybrand-200" placeholder="Mario Rossi">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Email</label>
+                                <input id="booking-patient-email" type="email" required class="w-full border border-slate-200 rounded-xl px-3 py-2.5 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-skybrand-200" placeholder="mario@email.it">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Data preferita</label>
+                                <input id="booking-date" type="date" required class="w-full border border-slate-200 rounded-xl px-3 py-2.5 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-skybrand-200">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Canale</label>
+                                <select id="booking-channel" class="w-full border border-slate-200 rounded-xl px-3 py-2.5 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-skybrand-200">
+                                    <option value="email">Email</option>
+                                    <option value="sms">SMS</option>
+                                    <option value="app">App</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Note</label>
+                            <textarea id="booking-note" rows="3" class="w-full border border-slate-200 rounded-xl px-3 py-2.5 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-skybrand-200" placeholder="Preferenza orario, sintomi, ecc."></textarea>
+                        </div>
+
+                        <div class="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-700">
+                            Il sistema invia automaticamente la richiesta a Pronto Click Dottore, la inoltra al medico e successivamente conferma il risultato al cliente.
+                        </div>
+
+                        <button type="submit" class="w-full bg-skybrand-500 hover:bg-skybrand-600 text-white font-semibold rounded-xl px-4 py-3 transition shadow-md shadow-skybrand-500/20">Conferma prenotazione</button>
+                    </form>
+                </div>
+            `;
+            document.body.appendChild(modal);
+
+            modal.querySelector('[data-close-booking]').addEventListener('click', () => modal.remove());
+            modal.querySelector('#booking-flow-form').addEventListener('submit', (event) => {
+                event.preventDefault();
+                const patientName = document.getElementById('booking-patient-name').value.trim();
+                const patientEmail = document.getElementById('booking-patient-email').value.trim();
+                const bookingDate = document.getElementById('booking-date').value;
+                const bookingChannel = document.getElementById('booking-channel').value;
+                const note = document.getElementById('booking-note').value.trim();
+
+                if (!patientName || !patientEmail || !bookingDate) {
+                    alert('Completa tutti i campi richiesti.');
+                    return;
+                }
+
+                const request = {
+                    id: `PC-${Date.now()}`,
+                    patientName,
+                    patientEmail,
+                    bookingDate,
+                    bookingChannel,
+                    note,
+                    doctor: doctor?.name || 'Medico',
+                    specialty: doctor?.specialty || 'Generico',
+                    city: doctor?.city || 'Italia',
+                    status: 'Richiesta inviata a Pronto Click Dottore',
+                    createdAt: new Date().toISOString(),
+                    breakdown: computeCommissionBreakdown(doctor?.price || 90)
+                };
+
+                state.bookings.unshift(request);
+                modal.innerHTML = `
+                    <div class="absolute inset-0 bg-slate-950/50"></div>
+                    <div class="relative w-full max-w-lg rounded-3xl bg-white p-6 shadow-2xl border border-slate-200">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-2xl font-bold text-slate-900">Prenotazione confermata</h3>
+                            <button type="button" class="text-slate-500 hover:text-slate-700" data-close-booking>
+                                <i class="fa-solid fa-xmark text-lg"></i>
+                            </button>
+                        </div>
+                        <div class="space-y-3 text-sm text-slate-600">
+                            <div class="rounded-2xl bg-emerald-50 border border-emerald-200 p-4 text-emerald-700">
+                                <strong>ID richiesta:</strong> ${request.id}<br>
+                                <strong>Stato:</strong> ${request.status}
+                            </div>
+                            <div class="rounded-2xl bg-slate-50 border border-slate-200 p-4">
+                                <p><strong>Paziente:</strong> ${request.patientName}</p>
+                                <p class="mt-1"><strong>Medico:</strong> ${request.doctor}</p>
+                                <p class="mt-1"><strong>Data:</strong> ${new Date(request.bookingDate + 'T00:00:00').toLocaleDateString('it-IT')}</p>
+                            </div>
+                            <div class="rounded-2xl bg-skybrand-50 border border-skybrand-100 p-4 text-slate-700">
+                                <p><strong>Notifica automatica:</strong> inviata a Pronto Click Dottore tramite ${request.bookingChannel}.</p>
+                                <p class="mt-2"><strong>Conferma successiva:</strong> il medico riceve la disponibilità e il cliente viene informato automaticamente.</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                modal.querySelector('[data-close-booking]').addEventListener('click', () => modal.remove());
+            });
+        }
+
+        function updatePartnerCommissionPreview() {
+            const partnerType = document.getElementById('partner-type')?.value || 'farmacia';
+            const priceValue = Number(document.getElementById('partner-price')?.value || 0);
+            const breakdown = computeCommissionBreakdown(priceValue, partnerType, true);
+
+            document.getElementById('preview-total')?.textContent = money(breakdown.total);
+            document.getElementById('preview-partner')?.textContent = money(breakdown.partnerCommission);
+            document.getElementById('preview-platform')?.textContent = money(breakdown.platformFee);
+            document.getElementById('preview-promoter')?.textContent = money(breakdown.promoterFee);
+            document.getElementById('preview-doctor')?.textContent = money(breakdown.netDoctor);
+        }
+
+        function setupBusinessForms() {
+            const partnerForm = document.getElementById('partner-booking-form');
+            if (partnerForm) {
+                partnerForm.addEventListener('submit', (event) => {
+                    event.preventDefault();
+                    const name = document.getElementById('patient-name').value.trim();
+                    const email = document.getElementById('patient-email').value.trim();
+                    const date = document.getElementById('partner-date').value;
+                    const specialty = document.getElementById('partner-specialty').value;
+                    const partnerType = document.getElementById('partner-type').value;
+                    const price = Number(document.getElementById('partner-price').value || 0);
+
+                    if (!name || !email || !date) {
+                        alert('Completa i dati del paziente e la data della visita.');
+                        return;
+                    }
+
+                    const booking = {
+                        id: `PARTNER-${Date.now()}`,
+                        partnerType,
+                        specialty,
+                        patientName: name,
+                        email,
+                        date,
+                        total: price,
+                        breakdown: computeCommissionBreakdown(price, partnerType, true),
+                        channel: 'Hub partner',
+                        status: 'Prenotazione registrata tramite hub partner'
+                    };
+
+                    state.bookings.unshift(booking);
+                    alert(`Prenotazione registrata correttamente.\nID: ${booking.id}\nCommissione: ${money(booking.breakdown.partnerCommission)} a ${partnerType}.`);
+                    partnerForm.reset();
+                    document.getElementById('partner-price').value = '140';
+                    updatePartnerCommissionPreview();
+                });
+            }
+
+            const partnerTypeField = document.getElementById('partner-type');
+            const partnerPriceField = document.getElementById('partner-price');
+            partnerTypeField?.addEventListener('change', updatePartnerCommissionPreview);
+            partnerPriceField?.addEventListener('input', updatePartnerCommissionPreview);
+            updatePartnerCommissionPreview();
+        }
+
+        function setupRoleRegistrationButtons() {
+            document.querySelectorAll('.role-register-btn').forEach((button) => {
+                button.addEventListener('click', () => {
+                    const role = button.dataset.role || 'paziente';
+                    const labelMap = {
+                        paziente: 'Registrazione paziente',
+                        medico: 'Registrazione medico / professionista',
+                        partner: 'Registrazione partner / promotore'
+                    };
+                    openAuthModal(role, labelMap[role] || 'Registrazione');
+                });
+            });
+        }
+
+        function openAuthModal(mode = 'login', customTitle = 'Accedi al tuo account') {
             const existing = document.getElementById('supabase-auth-modal');
             if (existing) existing.remove();
 
@@ -646,7 +1053,7 @@
                 <div class="absolute inset-0 bg-slate-950/50"></div>
                 <div class="relative w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl border border-slate-200">
                     <div class="flex items-center justify-between mb-5">
-                        <h3 class="text-xl font-bold text-slate-900">${mode === 'signup' ? 'Registrati gratis' : 'Accedi al tuo account'}</h3>
+                        <h3 class="text-xl font-bold text-slate-900">${customTitle}</h3>
                         <button type="button" class="text-slate-500 hover:text-slate-700" data-close-auth>
                             <i class="fa-solid fa-xmark text-lg"></i>
                         </button>
@@ -654,13 +1061,13 @@
                     <form id="supabase-auth-form" class="space-y-4">
                         <div>
                             <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Email</label>
-                            <input type="email" id="auth-email" required class="w-full border border-slate-200 rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-skybrand-200 focus:border-skybrand-400" placeholder="tuo@email.com">
+                            <input type="email" id="auth-email" required class="w-full border border-slate-200 rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-skybrand-200 focus:border-skybrand-300">
                         </div>
                         <div>
                             <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Password</label>
-                            <input type="password" id="auth-password" required class="w-full border border-slate-200 rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-skybrand-200 focus:border-skybrand-400" placeholder="••••••••">
+                            <input type="password" id="auth-password" required class="w-full border border-slate-200 rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-skybrand-200 focus:border-skybrand-300">
                         </div>
-                        <button type="submit" class="w-full bg-skybrand-500 hover:bg-skybrand-600 text-white font-semibold rounded-xl px-4 py-2.5 transition">${mode === 'signup' ? 'Registrati' : 'Login'}</button>
+                        <button type="submit" class="w-full bg-skybrand-500 hover:bg-skybrand-600 text-white font-semibold rounded-xl px-4 py-2.5 transition">${mode === 'login' ? 'Accedi' : 'Crea account'}</button>
                     </form>
                 </div>
             `;
@@ -673,10 +1080,10 @@
                 const password = document.getElementById('auth-password').value.trim();
 
                 try {
-                    if (mode === 'signup') {
-                        await signUpWithSupabase(email, password);
-                    } else {
+                    if (mode === 'login') {
                         await signInWithSupabase(email, password);
+                    } else {
+                        await signUpWithSupabase(email, password);
                     }
                     modal.remove();
                 } catch (error) {
@@ -713,7 +1120,7 @@
                 registerButton.addEventListener('click', (event) => {
                     event.preventDefault();
                     toggleDropdown('register-dropdown');
-                    openAuthModal('signup');
+                    openAuthModal('signup', 'Registrazione cliente');
                 });
             }
 
@@ -721,7 +1128,14 @@
             registerItems.forEach((item) => {
                 item.addEventListener('click', (event) => {
                     event.preventDefault();
-                    openAuthModal('signup');
+                    const label = item.textContent.trim();
+                    const roleMap = {
+                        'Come Paziente': 'Registrazione paziente',
+                        'Come Dottore / MMG': 'Registrazione medico / professionista',
+                        'Partner Service': 'Registrazione partner / promotore',
+                        'Promotore': 'Registrazione promotore'
+                    };
+                    openAuthModal('signup', roleMap[label] || 'Registrazione');
                 });
             });
         }
@@ -757,13 +1171,33 @@
             });
         }
 
+        document.addEventListener('click', (event) => {
+            const button = event.target.closest('.book-doctor-btn');
+            if (!button) return;
+            const doctor = JSON.parse(button.dataset.doctor || '{}');
+            if (doctor && doctor.name) {
+                openBookingModal(doctor);
+            }
+        });
+
         window.addEventListener('DOMContentLoaded', () => {
             setupAutocomplete();
             renderQuickSpecialties();
             renderQuickCities();
             setupSearchForm();
             setupAuthLinks();
+            setupBusinessForms();
+            setupRoleRegistrationButtons();
+            setupPartnerCommissionPreview();
         });
+
+        function setupPartnerCommissionPreview() {
+            const input = document.getElementById('partner-price');
+            if (input) {
+                input.value = 140;
+            }
+            updatePartnerCommissionPreview();
+        }
     </script>
 </body>
 </html>
