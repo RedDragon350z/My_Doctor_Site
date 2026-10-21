@@ -3,9 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pronto Click Dottore</title>
-  <meta name="supabase-url" content="https://ypkyyejpqwswtcmkcrct.supabase.co" />
-  <meta name="supabase-key" content="sb_publishable_5JTXGieh9s6LeGQy99ET1Q_AKYq_80v" />
+  <title>Pronto Click Dottore - Trova Specialisti e Prenota la Tua Visita</title>
   <link rel="icon" type="image/png" href="logo.png" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -14,26 +12,34 @@
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: { sans: ['Inter','sans-serif'] },
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
           colors: {
             skybrand: {
-              50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc',
-              400: '#38bdf8', 500: '#0284c7', 600: '#0369a1', 700: '#075985',
-              800: '#0c4a6e', 900: '#0f172a'
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              200: '#bae6fd',
+              300: '#7dd3fc',
+              400: '#38bdf8',
+              500: '#0284c7',
+              600: '#0369a1',
+              700: '#075985',
+              800: '#0c4a6e',
+              900: '#0f172a'
             }
           }
         }
       }
     };
   </script>
-  <script type="module">
-    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
-    const metaValue = (name) => document.querySelector(`meta[name="${name}"]`)?.getAttribute('content') || '';
-    window.supabase = createClient(metaValue('supabase-url') || 'https://example.supabase.co', metaValue('supabase-key') || 'public-anon-key');
-  </script>
   <style>
-    body { font-family: 'Inter', sans-serif; background: #f8fafc; color: #1e293b; }
-    .hero-bg { background: linear-gradient(135deg, #e0f2fe 0%, #ffffff 100%); }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+    }
+    .hero-bg {
+      background: linear-gradient(135deg, #e0f2fe 0%, #ffffff 100%);
+    }
     .drop-panel { position: absolute; top: calc(100% + 0.5rem); right: 0; }
     .drop-panel.hidden { display: none; }
     .result-card:hover { transform: translateY(-1px); }
@@ -42,7 +48,7 @@
 <body class="min-h-screen flex flex-col">
   <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
-      <a href="#" onclick="showHomeView(); return false;" class="flex items-center gap-3">
+      <a href="#" onclick="showHomeView(); return false;" class="flex items-center gap-3 group">
         <img src="logo.png" alt="Pronto Click Dottore" class="h-16 md:h-20 w-auto object-contain mix-blend-multiply" />
       </a>
 
@@ -84,7 +90,7 @@
         <a href="#" class="hover:text-skybrand-600 transition" id="login-link">Login</a>
 
         <div class="relative" data-dropdown>
-          <button type="button" onclick="toggleDropdown('pro-dropdown')" class="flex items-center gap-1.5 px-4 py-2 rounded-full border border-slate-300 bg-white hover:border-skybrand-300 transition">
+          <button type="button" onclick="toggleDropdown('pro-dropdown')" class="flex items-center gap-1.5 px-4 py-2 rounded-full border border-slate-300 bg-white hover:border-skybrand-300 transition text-slate-800 shadow-sm">
             <span>Sei un Professionista sanitario?</span>
             <i class="fa-solid fa-chevron-down text-xs text-slate-500"></i>
           </button>
@@ -114,7 +120,7 @@
                 <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1 ml-3">Specializzazione o Medico</label>
                 <div class="relative flex items-center">
                   <i class="fa-solid fa-magnifying-glass text-slate-400 absolute left-3.5 text-base"></i>
-                  <input id="specialty-input" type="text" placeholder="Es. Ginecologia e Ostetricia, Dermatologia, Cardiologia..." autocomplete="off" class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-skybrand-200 focus:border-skybrand-300" />
+                  <input id="specialty-input" type="text" placeholder="Es. Ginecologia e Ostetricia, Dermatologia, Cardiologia..." autocomplete="off" class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-skybrand-200" />
                 </div>
                 <div id="specialty-autocomplete" class="hidden absolute left-0 right-0 top-full mt-2 bg-white rounded-xl shadow-xl border border-slate-200 max-h-60 overflow-y-auto z-40"></div>
               </div>
@@ -123,7 +129,7 @@
                 <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1 ml-3">Città o Capoluogo</label>
                 <div class="relative flex items-center">
                   <i class="fa-solid fa-location-dot text-slate-400 absolute left-3.5 text-base"></i>
-                  <input id="location-input" type="text" placeholder="Es. Roma, Milano, Torino, Matera..." autocomplete="off" class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-skybrand-200 focus:border-skybrand-300" />
+                  <input id="location-input" type="text" placeholder="Es. Roma, Milano, Torino, Matera..." autocomplete="off" class="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-skybrand-200" />
                 </div>
                 <div id="location-autocomplete" class="hidden absolute left-0 right-0 top-full mt-2 bg-white rounded-xl shadow-xl border border-slate-200 max-h-60 overflow-y-auto z-40"></div>
               </div>
@@ -153,12 +159,12 @@
               <i class="fa-solid fa-stethoscope text-skybrand-500"></i> Prestazioni e Trattamenti Frequenti
             </h3>
             <div class="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-slate-700">
-              <button type="button" onclick="fillSpecialty('Blefaroplastica')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-700 border border-slate-200 transition">👁️ Blefaroplastica</button>
-              <button type="button" onclick="fillSpecialty('Colposcopia')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-700 border border-slate-200 transition">🔬 Colposcopia</button>
-              <button type="button" onclick="fillSpecialty('Mindfulness')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-700 border border-slate-200 transition">🧠 Mindfulness</button>
-              <button type="button" onclick="fillSpecialty('Ecografia addome completo')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-700 border border-slate-200 transition">📡 Ecografia addome completo</button>
-              <button type="button" onclick="fillSpecialty('Dieta chetogenica')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-700 border border-slate-200 transition">🥗 Dieta chetogenica</button>
-              <button type="button" onclick="fillSpecialty('Faccette dentali')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-700 border border-slate-200 transition">🦷 Faccette dentali</button>
+              <button type="button" onclick="fillSpecialty('Blefaroplastica')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-700 border border-slate-200 transition"><span>👁️</span> <span>Blefaroplastica</span></button>
+              <button type="button" onclick="fillSpecialty('Colposcopia')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-700 border border-slate-200 transition"><span>🔬</span> <span>Colposcopia</span></button>
+              <button type="button" onclick="fillSpecialty('Mindfulness')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-700 border border-slate-200 transition"><span>🧠</span> <span>Mindfulness</span></button>
+              <button type="button" onclick="fillSpecialty('Ecografia addome completo')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-700 border border-slate-200 transition"><span>📡</span> <span>Ecografia addome completo</span></button>
+              <button type="button" onclick="fillSpecialty('Dieta chetogenica')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-700 border border-slate-200 transition"><span>🥗</span> <span>Dieta chetogenica</span></button>
+              <button type="button" onclick="fillSpecialty('Faccette dentali')" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-skybrand-50 hover:text-skybrand-700 border border-slate-200 transition"><span>🦷</span> <span>Faccette dentali</span></button>
               <button type="button" onclick="focusSearch('specialty-input')" class="text-skybrand-600 font-semibold underline hover:text-skybrand-700 ml-2">Altro</button>
             </div>
           </div>
@@ -218,7 +224,7 @@
           <article class="bg-slate-50 border border-slate-200 rounded-3xl p-6 shadow-sm">
             <div class="w-12 h-12 rounded-2xl bg-skybrand-100 text-skybrand-700 flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-user-plus"></i></div>
             <h3 class="text-xl font-bold text-slate-900 mb-2">1. Prenotazione cliente</h3>
-            <p class="text-sm text-slate-600 leading-relaxed">Il paziente inserisce richiesta e dati di contatto. La piattaforma genera una notifica a Pronto Click Dottore.</p>
+            <p class="text-sm text-slate-600 leading-relaxed">Il paziente inserisce richiesta e dati di contatto. La piattaforma genera la richiesta e la inoltra ai professionisti.</p>
           </article>
           <article class="bg-slate-50 border border-slate-200 rounded-3xl p-6 shadow-sm">
             <div class="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-envelope-circle-check"></i></div>
@@ -228,7 +234,7 @@
           <article class="bg-slate-50 border border-slate-200 rounded-3xl p-6 shadow-sm">
             <div class="w-12 h-12 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-clipboard-check"></i></div>
             <h3 class="text-xl font-bold text-slate-900 mb-2">3. Gestione operativa</h3>
-            <p class="text-sm text-slate-600 leading-relaxed">Ogni richiesta viene tracciata con dati del paziente, medico, data, canale e commissione associata.</p>
+            <p class="text-sm text-slate-600 leading-relaxed">Ogni richiesta viene tracciata con dati del paziente, del medico, della data e della commissione associata.</p>
           </article>
         </div>
       </div>
@@ -247,11 +253,19 @@
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Partner</label>
-                  <select class="w-full border border-slate-200 rounded-xl px-3 py-2.5 bg-slate-50"><option>Farmacia</option><option>Parafarmacia</option><option>Promotore</option></select>
+                  <select class="w-full border border-slate-200 rounded-xl px-3 py-2.5 bg-slate-50">
+                    <option>Farmacia</option>
+                    <option>Parafarmacia</option>
+                    <option>Promotore</option>
+                  </select>
                 </div>
                 <div>
                   <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Specializzazione</label>
-                  <select class="w-full border border-slate-200 rounded-xl px-3 py-2.5 bg-slate-50"><option>Cardiologia</option><option>Dermatologia</option><option>Ginecologia</option></select>
+                  <select class="w-full border border-slate-200 rounded-xl px-3 py-2.5 bg-slate-50">
+                    <option>Cardiologia</option>
+                    <option>Dermatologia</option>
+                    <option>Ginecologia</option>
+                  </select>
                 </div>
               </div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -319,15 +333,17 @@
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <article class="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
-            <div class="flex items-center justify-between mb-4"><h3 class="text-xl font-bold text-slate-900">Piano Base</h3><span class="bg-skybrand-100 text-skybrand-700 text-xs font-bold px-2.5 py-1 rounded-full uppercase">€20/mese</span></div>
-            <ul class="text-sm text-slate-600 space-y-2"><li><i class="fa-solid fa-check text-emerald-500 mr-2"></i>Profilo medico attivo</li><li><i class="fa-solid fa-check text-emerald-500 mr-2"></i>Gestione disponibilità</li><li><i class="fa-solid fa-check text-emerald-500 mr-2"></i>Notifiche prenotazione</li></ul>
+            <div class="flex items-center justify-between mb-4"><h3 class="text-xl font-bold text-slate-900">Piano Base</h3><span class="bg-skybrand-100 text-skybrand-700 text-xs font-bold px-2.5 py-1 rounded-full uppercase">Base</span></div>
+            <p class="text-3xl font-extrabold text-slate-900 mb-4">€20<span class="text-sm font-medium text-slate-500">/mese</span></p>
+            <ul class="text-sm text-slate-600 space-y-2"><li><i class="fa-solid fa-check text-emerald-500 mr-2"></i>Profilo medico attivo</li><li><i class="fa-solid fa-check text-emerald-500 mr-2"></i>Gestione disponibilità</li><li><i class="fa-solid fa-check text-emerald-500 mr-2"></i>Notifiche flusso prenotazione</li></ul>
           </article>
           <article class="bg-skybrand-600 text-white border border-skybrand-600 rounded-3xl p-6 shadow-sm">
             <div class="flex items-center justify-between mb-4"><h3 class="text-xl font-bold">Piano Growth</h3><span class="bg-white/10 text-xs font-bold px-2 py-1 rounded-full uppercase">Popolare</span></div>
-            <ul class="text-sm space-y-2 opacity-95"><li><i class="fa-solid fa-check mr-2"></i>Abbonamento base mensile</li><li><i class="fa-solid fa-check mr-2"></i>Quota sulle prestazioni</li><li><i class="fa-solid fa-check mr-2"></i>Dashboard partner</li></ul>
+            <p class="text-3xl font-extrabold mb-4">€49<span class="text-sm font-medium opacity-80">/mese</span></p>
+            <ul class="text-sm space-y-2 opacity-95"><li><i class="fa-solid fa-check mr-2"></i>Abbonamento base mensile</li><li><i class="fa-solid fa-check mr-2"></i>Quota sulle prestazioni con split chiaro</li><li><i class="fa-solid fa-check mr-2"></i>Dashboard partner e promotori</li></ul>
           </article>
           <article class="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
-            <div class="flex items-center justify-between mb-4"><h3 class="text-xl font-bold text-slate-900">Split prestazioni</h3><span class="bg-emerald-100 text-emerald-700 text-xs font-bold px-2.5 py-1 rounded-full uppercase">80/15/5</span></div>
+            <div class="flex items-center justify-between mb-4"><h3 class="text-xl font-bold text-slate-900">Split prestazioni</h3><span class="bg-emerald-100 text-emerald-700 text-xs font-bold px-2.5 py-1 rounded-full uppercase">Chiaro</span></div>
             <ul class="text-sm text-slate-600 space-y-2"><li><i class="fa-solid fa-circle-dot text-skybrand-500 mr-2"></i>Promotore: 5%</li><li><i class="fa-solid fa-circle-dot text-skybrand-500 mr-2"></i>Plataforma: 15%</li><li><i class="fa-solid fa-circle-dot text-skybrand-500 mr-2"></i>Medico / farmacia: 80%</li></ul>
           </article>
         </div>
@@ -339,9 +355,11 @@
         <button type="button" onclick="showHomeView()" class="inline-flex items-center gap-2 text-sm font-semibold text-skybrand-600 hover:text-skybrand-700"><i class="fa-solid fa-arrow-left"></i> Torna alla Home</button>
         <span class="text-xs text-slate-400" id="search-query-summary">Ricerche attive</span>
       </div>
-      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm mb-6">
-        <h1 class="text-xl font-bold text-slate-900 flex items-center gap-2"><i class="fa-solid fa-user-doctor text-skybrand-500"></i><span>Risultati di ricerca</span></h1>
-        <p class="text-xs text-slate-500 mt-0.5">Seleziona il medico e scegli lo slot per la prenotazione online</p>
+      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm mb-6 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div>
+          <h1 class="text-xl font-bold text-slate-900 flex items-center gap-2"><i class="fa-solid fa-user-doctor text-skybrand-500"></i><span id="results-title">Risultati di ricerca</span></h1>
+          <p class="text-xs text-slate-500 mt-0.5">Seleziona il medico e scegli lo slot per la prenotazione online</p>
+        </div>
       </div>
       <div class="mb-6 bg-white border border-slate-200 rounded-2xl p-5 text-sm text-slate-600">Hai cercato: <strong id="active-search-text" class="text-skybrand-600">--</strong></div>
       <div id="results-grid" class="grid grid-cols-1 xl:grid-cols-2 gap-6"></div>
@@ -379,22 +397,21 @@
   </footer>
 
   <script>
-    const state = { doctors: [] };
     const demoDoctors = [
       { name: 'Dott. Marco Bianchi', specialty: 'Cardiologia', city: 'Roma', clinic: 'CardioCare Roma', rating: 4.9, reviews: 186, next_slot: 'Domani, 09:30', price: 120, distance: '2.4 km' },
-      { name: 'Dott.ssa Laura Verdi', specialty: 'Ginecologia e Ostetricia', city: 'Milano', clinic: 'Studio San Giuseppe', rating: 4.8, reviews: 143, next_slot: 'Mer, 11:00', price: 135, distance: '1.1 km' },
-      { name: 'Dott. Paolo Rossi', specialty: 'Dermatologia e Venereologia', city: 'Napoli', clinic: 'Dermatology Center', rating: 4.7, reviews: 98, next_slot: 'Oggi, 18:00', price: 95, distance: '3.2 km' },
-      { name: 'Dott.ssa Elena Neri', specialty: 'Oculistica (Oftalmologia)', city: 'Firenze', clinic: 'Visione Lucida', rating: 4.9, reviews: 215, next_slot: 'Ven, 15:30', price: 110, distance: '2.0 km' },
+      { name: 'Dott.ssa Laura Verdi', specialty: 'Ginecologia e Ostetricia', city: 'Milano', clinic: 'Studio San Giuseppe', rating: 4.8, reviews: 143, next_slot: 'Mer, 11:00', price: 135, distance: '1.8 km' },
+      { name: 'Dott. Paolo Rossi', specialty: 'Dermatologia e Venereologia', city: 'Napoli', clinic: 'Dermatology Center', rating: 4.7, reviews: 98, next_slot: 'Oggi, 18:00', price: 95, distance: '3.1 km' },
+      { name: 'Dott.ssa Elena Neri', specialty: 'Oculistica (Oftalmologia)', city: 'Firenze', clinic: 'Visione Lucida', rating: 4.9, reviews: 215, next_slot: 'Ven, 15:30', price: 110, distance: '2.1 km' },
       { name: 'Dott. Luca Gialli', specialty: 'Ortopedia e Traumatologia', city: 'Torino', clinic: 'Orthosport', rating: 4.6, reviews: 90, next_slot: 'Gio, 10:15', price: 140, distance: '4.1 km' },
       { name: 'Dott.ssa Sofia Moretti', specialty: 'Psicologia', city: 'Bologna', clinic: 'MindSpace', rating: 4.9, reviews: 255, next_slot: 'Lun, 09:00', price: 100, distance: '1.8 km' }
     ];
 
     const specialties = [
-      'Allergologia e Immunologia','Anestesia e Rianimazione','Cardiologia','Dermatologia e Venereologia','Fisioterapia','Ginecologia e Ostetricia','Medicina Generale (Medico di Base / Famiglia)','Neurologia','Oculistica (Oftalmologia)','Ortopedia e Traumatologia','Pediatria','Psicologia','Radiologia e Radiodiagnostica','Urologia'
+      'Allergologia e Immunologia', 'Anestesia e Rianimazione', 'Cardiologia', 'Dermatologia e Venereologia', 'Fisioterapia', 'Ginecologia e Ostetricia', 'Medicina Generale (Medico di Base / Famiglia)', 'Neurologia', 'Oculistica (Oftalmologia)', 'Psicologia', 'Ortopedia e Traumatologia', 'Urologia'
     ];
 
     const italianCities = [
-      'Roma','Milano','Napoli','Torino','Palermo','Genova','Bologna','Firenze','Bari','Trieste','Perugia','Catania','Verona','Reggio Calabria','Messina','Padova','Taranto','Livorno','Ancona','Lecce','Cagliari','Sassari','Bolzano','Aosta','Matera','Campobasso'
+      'Roma', 'Milano', 'Napoli', 'Torino', 'Palermo', 'Genova', 'Bologna', 'Firenze', 'Bari', 'Trieste', 'Perugia', 'Catania', 'Verona', 'Reggio Calabria', 'Messina', 'Padova', 'Taranto', 'Livorno', 'Ancona', 'Lecce', 'Matera', 'Venezia', 'Como', 'Macerata'
     ];
 
     function normalizeText(value) {
@@ -405,16 +422,6 @@
       return new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR', minimumFractionDigits: 2 }).format(Number(value || 0));
     }
 
-    function toggleDropdown(id) {
-      const panel = document.getElementById(id);
-      if (!panel) return;
-      const isOpen = !panel.classList.contains('hidden');
-      document.getElementById('info-dropdown')?.classList.add('hidden');
-      document.getElementById('register-dropdown')?.classList.add('hidden');
-      document.getElementById('pro-dropdown')?.classList.add('hidden');
-      if (!isOpen) panel.classList.remove('hidden');
-    }
-
     function showHomeView() {
       hideInfoSections();
       document.getElementById('results-view')?.classList.add('hidden');
@@ -423,7 +430,7 @@
     }
 
     function hideInfoSections() {
-      ['business-flow','partner-hub','registration-roles','monetization'].forEach((id) => {
+      ['business-flow', 'partner-hub', 'registration-roles', 'monetization'].forEach((id) => {
         const el = document.getElementById(id);
         if (el) el.classList.add('hidden');
       });
@@ -439,6 +446,16 @@
       section?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
+    function toggleDropdown(id) {
+      const panel = document.getElementById(id);
+      if (!panel) return;
+      const isOpen = !panel.classList.contains('hidden');
+      document.getElementById('info-dropdown')?.classList.add('hidden');
+      document.getElementById('register-dropdown')?.classList.add('hidden');
+      document.getElementById('pro-dropdown')?.classList.add('hidden');
+      if (!isOpen) panel.classList.remove('hidden');
+    }
+
     function focusSearch(id) {
       showHomeView();
       const el = document.getElementById(id);
@@ -449,7 +466,7 @@
       const container = document.getElementById('specialties-quick-container');
       if (!container) return;
       container.innerHTML = specialties.map((s) => `
-        <button type="button" class="aspect-square flex flex-col items-center justify-center p-4 rounded-2xl bg-slate-50 hover:bg-skybrand-50 hover:border-skybrand-300 border border-slate-200 transition group" data-specialty="${s}">
+        <button type="button" class="aspect-square flex flex-col items-center justify-center p-4 rounded-2xl bg-slate-50 hover:bg-skybrand-50 hover:border-skybrand-300 border border-slate-200 transition-all duration-200 shadow-sm group text-center" data-specialty="${s}">
           <span class="text-3xl sm:text-4xl mb-3">🩺</span>
           <span class="text-xs sm:text-sm font-semibold text-slate-700 group-hover:text-skybrand-700 leading-tight text-center">${s}</span>
         </button>
@@ -484,7 +501,7 @@
       document.getElementById('location-input').value = value;
     }
 
-    function renderMatches(inputId, containerId, sourceList, formatter) {
+    function renderMatches(inputId, containerId, sourceList) {
       const input = document.getElementById(inputId);
       const container = document.getElementById(containerId);
       if (!input || !container) return;
@@ -497,7 +514,7 @@
       }
       container.innerHTML = matches.map((item) => `
         <div class="px-4 py-2 hover:bg-skybrand-50 text-sm text-slate-700 cursor-pointer flex items-center gap-2.5" data-pick="${item}">
-          <i class="fa-solid fa-${formatter.icon} text-skybrand-500 text-xs w-4 text-center"></i>
+          <i class="fa-solid fa-${inputId.includes('specialty') ? 'magnifying-glass' : 'location-dot'} text-skybrand-500 text-xs w-4 text-center"></i>
           <span>${item}</span>
         </div>
       `).join('');
@@ -515,8 +532,8 @@
       const locationInput = document.getElementById('location-input');
       if (!specialtyInput || !locationInput) return;
 
-      specialtyInput.addEventListener('input', () => renderMatches('specialty-input','specialty-autocomplete',specialties,{ icon: 'magnifying-glass' }));
-      locationInput.addEventListener('input', () => renderMatches('location-input','location-autocomplete',italianCities,{ icon: 'location-dot' }));
+      specialtyInput.addEventListener('input', () => renderMatches('specialty-input', 'specialty-autocomplete', specialties));
+      locationInput.addEventListener('input', () => renderMatches('location-input', 'location-autocomplete', italianCities));
 
       document.addEventListener('click', (event) => {
         const target = event.target;
@@ -535,27 +552,14 @@
       });
     }
 
-    async function searchDoctors(specialty, city) {
-      const query = { specialty: (specialty || '').trim(), city: (city || '').trim() };
-      const fallback = demoDoctors.filter((doctor) => {
-        const matchSpecialty = !query.specialty || normalizeText(doctor.specialty).includes(normalizeText(query.specialty));
-        const matchCity = !query.city || normalizeText(doctor.city).includes(normalizeText(query.city));
-        return matchSpecialty && matchCity;
+    function searchDoctors(specialty, city) {
+      const querySpecialty = normalizeText(specialty);
+      const queryCity = normalizeText(city);
+      return demoDoctors.filter((doctor) => {
+        const specialtyMatch = !querySpecialty || normalizeText(doctor.specialty).includes(querySpecialty);
+        const cityMatch = !queryCity || normalizeText(doctor.city).includes(queryCity);
+        return specialtyMatch && cityMatch;
       });
-
-      try {
-        if (window.supabase) {
-          let supabaseQuery = window.supabase.from('doctors').select('*');
-          if (query.specialty) supabaseQuery = supabaseQuery.ilike('specialty', `%${query.specialty}%`);
-          if (query.city) supabaseQuery = supabaseQuery.ilike('city', `%${query.city}%`);
-          const { data, error } = await supabaseQuery.limit(20);
-          if (!error && Array.isArray(data) && data.length > 0) return data;
-        }
-      } catch (err) {
-        console.warn('Supabase search failed, using fallback data:', err);
-      }
-
-      return fallback.length ? fallback : demoDoctors;
     }
 
     function renderResults(doctors, specialty, city) {
@@ -629,15 +633,15 @@
           </div>
           <form id="booking-flow-form" class="space-y-4">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div><label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Nome paziente</label><input required id="booking-patient-name" class="w-full border border-slate-200 rounded-xl px-3 py-2.5 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-skybrand-200" /></div>
-              <div><label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Email</label><input required id="booking-patient-email" type="email" class="w-full border border-slate-200 rounded-xl px-3 py-2.5 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-skybrand-200" /></div>
+              <div><label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Nome paziente</label><input required id="booking-patient-name" class="w-full border border-slate-200 rounded-xl px-3 py-2.5 bg-slate-50" /></div>
+              <div><label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Email</label><input required id="booking-patient-email" type="email" class="w-full border border-slate-200 rounded-xl px-3 py-2.5 bg-slate-50" /></div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div><label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Data preferita</label><input required id="booking-date" type="date" class="w-full border border-slate-200 rounded-xl px-3 py-2.5 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-skybrand-200" /></div>
+              <div><label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Data preferita</label><input required id="booking-date" type="date" class="w-full border border-slate-200 rounded-xl px-3 py-2.5 bg-slate-50" /></div>
               <div><label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Canale</label><select id="booking-channel" class="w-full border border-slate-200 rounded-xl px-3 py-2.5 bg-slate-50"><option value="email">Email</option><option value="sms">SMS</option><option value="app">App</option></select></div>
             </div>
-            <div><label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Note</label><textarea id="booking-note" rows="3" class="w-full border border-slate-200 rounded-xl px-3 py-2.5 bg-slate-50 focus:outline-none focus:ring-2 focus:ring-skybrand-200"></textarea></div>
-            <div class="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-700">Il sistema invia automaticamente la richiesta a Pronto Click Dottore, la inoltra al medico e poi invia la conferma al cliente.</div>
+            <div><label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Note</label><textarea id="booking-note" rows="3" class="w-full border border-slate-200 rounded-xl px-3 py-2.5 bg-slate-50"></textarea></div>
+            <div class="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-700">Il sistema invia automaticamente la richiesta a Pronto Click Dottore, la inoltra al medico e successivamente conferma il risultato al cliente.</div>
             <button type="submit" class="w-full bg-skybrand-500 hover:bg-skybrand-600 text-white font-semibold rounded-xl px-4 py-3 transition shadow-md shadow-skybrand-500/20">Conferma prenotazione</button>
           </form>
         </div>
@@ -653,14 +657,15 @@
           alert('Completa tutti i campi richiesti.');
           return;
         }
+
         modal.innerHTML = `
           <div class="absolute inset-0 bg-slate-950/50"></div>
           <div class="relative w-full max-w-lg rounded-3xl bg-white p-6 shadow-2xl border border-slate-200">
             <div class="flex items-center justify-between mb-4"><h3 class="text-2xl font-bold text-slate-900">Prenotazione confermata</h3><button type="button" class="text-slate-500 hover:text-slate-700" data-close-booking><i class="fa-solid fa-xmark text-lg"></i></button></div>
             <div class="space-y-3 text-sm text-slate-600">
               <div class="rounded-2xl bg-emerald-50 border border-emerald-200 p-4 text-emerald-700"><strong>ID richiesta:</strong> PC-${Date.now()}<br><strong>Stato:</strong> Richiesta inviata a Pronto Click Dottore</div>
-              <div class="rounded-2xl bg-slate-50 border border-slate-200 p-4"><p><strong>Paziente:</strong> ${name}</p><p class="mt-1"><strong>Medico:</strong> ${doctor.name}</p><p class="mt-1"><strong>Data:</strong> ${new Date(date + 'T00:00:00').toLocaleDateString('it-IT')}</p></div>
-              <div class="rounded-2xl bg-skybrand-50 border border-skybrand-100 p-4 text-slate-700"><p><strong>Notifica automatica:</strong> inviata tramite ${document.getElementById('booking-channel').value}.</p><p class="mt-2"><strong>Conferma successiva:</strong> il medico riceve la disponibilità e il cliente viene informato automaticamente.</p></div>
+              <div class="rounded-2xl bg-slate-50 border border-slate-200 p-4"><p><strong>Paziente:</strong> ${name}</p><p class="mt-1"><strong>Medico:</strong> ${doctor.name}</p><p class="mt-1"><strong>Data:</strong> ${date}</p></div>
+              <div class="rounded-2xl bg-skybrand-50 border border-skybrand-100 p-4 text-slate-700"><p><strong>Notifica automatica:</strong> inviata tramite ${document.getElementById('booking-channel').value}</p></div>
             </div>
           </div>
         `;
@@ -675,11 +680,11 @@
 
       const form = document.getElementById('search-form');
       if (form) {
-        form.addEventListener('submit', async (event) => {
+        form.addEventListener('submit', (event) => {
           event.preventDefault();
           const specialty = document.getElementById('specialty-input')?.value || '';
           const city = document.getElementById('location-input')?.value || '';
-          const doctors = await searchDoctors(specialty, city);
+          const doctors = searchDoctors(specialty, city);
           renderResults(doctors, specialty, city);
           document.getElementById('home-view')?.classList.add('hidden');
           document.getElementById('results-view')?.classList.remove('hidden');
