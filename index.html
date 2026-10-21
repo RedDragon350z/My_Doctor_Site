@@ -72,16 +72,16 @@
                         <i class="fa-solid fa-chevron-down text-xs ml-0.5"></i>
                     </button>
                     <div id="register-dropdown" class="hidden absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-slate-200 py-2 z-50">
-                        <a href="#" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-skybrand-50 hover:text-skybrand-600 transition">
+                        <a href="#" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-skybrand-50 hover:text-skybrand-600 transition" data-role="paziente">
                             <i class="fa-solid fa-user mr-2 text-skybrand-500"></i> Come Paziente
                         </a>
-                        <a href="#" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-skybrand-50 hover:text-skybrand-600 transition">
+                        <a href="#" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-skybrand-50 hover:text-skybrand-600 transition" data-role="medico">
                             <i class="fa-solid fa-user-doctor mr-2 text-skybrand-500"></i> Come Dottore / MMG
                         </a>
-                        <a href="#" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-skybrand-50 hover:text-skybrand-600 transition">
+                        <a href="#" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-skybrand-50 hover:text-skybrand-600 transition" data-role="partner">
                             <i class="fa-solid fa-pills mr-2 text-skybrand-500"></i> Partner Service
                         </a>
-                        <a href="#" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-skybrand-50 hover:text-skybrand-600 transition">
+                        <a href="#" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-skybrand-50 hover:text-skybrand-600 transition" data-role="partner">
                             <i class="fa-solid fa-bullhorn mr-2 text-skybrand-500"></i> Promotore
                         </a>
                     </div>
@@ -478,6 +478,12 @@
             platformRate: 0.15,
             promoterRate: 0.05,
             doctorShareRate: 0.80,
+        };
+
+        const ROLE_LABELS = {
+            paziente: { label: 'Cliente', icon: 'fa-solid fa-user', accent: 'skybrand' },
+            medico: { label: 'Medico / Professionista', icon: 'fa-solid fa-user-doctor', accent: 'violet' },
+            partner: { label: 'Partner / Promotore', icon: 'fa-solid fa-store', accent: 'amber' }
         };
 
         const ICON_MAP = {
@@ -1037,18 +1043,31 @@
                         medico: 'Registrazione medico / professionista',
                         partner: 'Registrazione partner / promotore'
                     };
-                    openAuthModal(role, labelMap[role] || 'Registrazione');
+                    openAuthModal('signup', labelMap[role] || 'Registrazione', role);
                 });
             });
         }
 
-        function openAuthModal(mode = 'login', customTitle = 'Accedi al tuo account') {
+        function openAuthModal(mode = 'login', customTitle = 'Accedi al tuo account', role = 'paziente') {
             const existing = document.getElementById('supabase-auth-modal');
             if (existing) existing.remove();
 
             const modal = document.createElement('div');
             modal.id = 'supabase-auth-modal';
             modal.className = 'fixed inset-0 z-[70] flex items-center justify-center p-4';
+
+            const roleCards = Object.entries(ROLE_LABELS).map(([value, config]) => {
+                const selected = value === role ? 'border-skybrand-500 bg-skybrand-50 text-skybrand-700 shadow-sm' : 'border-slate-200 bg-white text-slate-700 hover:border-skybrand-300 hover:text-skybrand-700';
+                return `
+                    <button type="button" data-role-choice="${value}" class="role-choice-btn w-full flex items-center gap-3 rounded-xl border px-3 py-3 text-left transition ${selected}">
+                        <span class="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center ${value === 'paziente' ? 'text-skybrand-600' : value === 'medico' ? 'text-violet-600' : 'text-amber-600'}">
+                            <i class="${config.icon}"></i>
+                        </span>
+                        <span class="font-semibold text-sm">${config.label}</span>
+                    </button>
+                `;
+            }).join('');
+
             modal.innerHTML = `
                 <div class="absolute inset-0 bg-slate-950/50"></div>
                 <div class="relative w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl border border-slate-200">
@@ -1058,7 +1077,23 @@
                             <i class="fa-solid fa-xmark text-lg"></i>
                         </button>
                     </div>
+                    ${mode === 'signup' ? `
+                        <div class="mb-4 text-xs font-semibold uppercase tracking-wider text-slate-500">Ruolo</div>
+                        <div class="space-y-2 mb-5">${roleCards}</div>
+                    ` : ''}
                     <form id="supabase-auth-form" class="space-y-4">
+                        ${mode === 'signup' ? `
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Nome</label>
+                                    <input type="text" id="auth-first-name" required class="w-full border border-slate-200 rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-skybrand-200 focus:border-skybrand-300">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Cognome</label>
+                                    <input type="text" id="auth-last-name" required class="w-full border border-slate-200 rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-skybrand-200 focus:border-skybrand-300">
+                                </div>
+                            </div>
+                        ` : ''}
                         <div>
                             <label class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Email</label>
                             <input type="email" id="auth-email" required class="w-full border border-slate-200 rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-skybrand-200 focus:border-skybrand-300">
@@ -1073,18 +1108,43 @@
             `;
             document.body.appendChild(modal);
 
+            const roleButtons = modal.querySelectorAll('.role-choice-btn');
+            roleButtons.forEach((btn) => {
+                btn.addEventListener('click', () => {
+                    const nextRole = btn.dataset.roleChoice || 'paziente';
+                    const typeText = {
+                        paziente: 'Registrazione paziente',
+                        medico: 'Registrazione medico / professionista',
+                        partner: 'Registrazione partner / promotore'
+                    }[nextRole] || 'Registrazione';
+                    openAuthModal('signup', typeText, nextRole);
+                });
+            });
+
             modal.querySelector('[data-close-auth]').addEventListener('click', () => modal.remove());
             modal.querySelector('#supabase-auth-form').addEventListener('submit', async (event) => {
                 event.preventDefault();
                 const email = document.getElementById('auth-email').value.trim();
                 const password = document.getElementById('auth-password').value.trim();
 
-                try {
-                    if (mode === 'login') {
-                        await signInWithSupabase(email, password);
-                    } else {
-                        await signUpWithSupabase(email, password);
+                if (mode === 'signup') {
+                    const firstName = document.getElementById('auth-first-name')?.value.trim() || '';
+                    const lastName = document.getElementById('auth-last-name')?.value.trim() || '';
+                    if (!firstName || !lastName) {
+                        alert('Inserisci nome e cognome per completare la registrazione.');
+                        return;
                     }
+                    try {
+                        await signUpWithSupabase(email, password, { first_name: firstName, last_name: lastName, role });
+                        modal.remove();
+                    } catch (error) {
+                        alert(error.message || 'Errore autenticazione');
+                    }
+                    return;
+                }
+
+                try {
+                    await signInWithSupabase(email, password);
                     modal.remove();
                 } catch (error) {
                     alert(error.message || 'Errore autenticazione');
@@ -1092,8 +1152,14 @@
             });
         }
 
-        async function signUpWithSupabase(email, password) {
-            const { data, error } = await window.supabase.auth.signUp({ email, password });
+        async function signUpWithSupabase(email, password, metadata = {}) {
+            const { data, error } = await window.supabase.auth.signUp({
+                email,
+                password,
+                options: {
+                    data: metadata
+                }
+            });
             if (error) throw error;
             alert('Registrazione completata. Controlla la tua email per verificare l\'account.');
             return data;
@@ -1120,7 +1186,7 @@
                 registerButton.addEventListener('click', (event) => {
                     event.preventDefault();
                     toggleDropdown('register-dropdown');
-                    openAuthModal('signup', 'Registrazione cliente');
+                    openAuthModal('signup', 'Registrazione paziente', 'paziente');
                 });
             }
 
@@ -1128,14 +1194,13 @@
             registerItems.forEach((item) => {
                 item.addEventListener('click', (event) => {
                     event.preventDefault();
-                    const label = item.textContent.trim();
-                    const roleMap = {
-                        'Come Paziente': 'Registrazione paziente',
-                        'Come Dottore / MMG': 'Registrazione medico / professionista',
-                        'Partner Service': 'Registrazione partner / promotore',
-                        'Promotore': 'Registrazione promotore'
+                    const role = item.dataset.role || 'paziente';
+                    const titleMap = {
+                        paziente: 'Registrazione paziente',
+                        medico: 'Registrazione medico / professionista',
+                        partner: 'Registrazione partner / promotore'
                     };
-                    openAuthModal('signup', roleMap[label] || 'Registrazione');
+                    openAuthModal('signup', titleMap[role] || 'Registrazione', role);
                 });
             });
         }
