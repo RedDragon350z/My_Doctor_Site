@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrazione Paziente - Pronto Click Dottore</title>
+
+    <meta name="supabase-url" content="https://ypkyyejpqwswtcmkcrct.supabase.co">
+    <meta name="supabase-key" content="sb_publishable_5JTXGieh9s6LeGQy99ET1Q_AKYq_80v">
+
+    <link rel="icon" type="image/png" href="logo.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        skybrand: { 50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc', 400: '#38bdf8', 500: '#0284c7', 600: '#0369a1', 700: '#075985', 800: '#0c4a6e', 900: '#0f172a' }
+                    }
+                }
+            }
+        }
+    </script>
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+        const metaValue = (name) => document.querySelector(`meta[name="${name}"]`)?.getAttribute('content') || '';
+        window.supabase = createClient(metaValue('supabase-url') || 'https://example.supabase.co', metaValue('supabase-key') || 'public-anon-key');
+    </script>
+</head>
+<body class="bg-slate-50 min-h-screen flex flex-col font-sans">
+
+    <header class="bg-white border-b border-slate-200 py-4 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2">
+                <img src="logo.png" alt="Pronto Click Dottore" class="h-12 w-auto object-contain">
+            </a>
+            <a href="index.html" class="text-sm font-semibold text-slate-500 hover:text-skybrand-600 flex items-center gap-2 transition">
+                <i class="fa-solid fa-arrow-left"></i> Torna alla Home
+            </a>
+        </div>
+    </header>
+
+    <main class="flex-grow flex items-center justify-center p-4 sm:p-6 lg:p-8">
+        <div class="w-full max-w-xl bg-white border border-slate-200/80 rounded-3xl p-8 sm:p-10 shadow-xl">
+            <div class="text-center mb-8">
+                <div class="w-14 h-14 bg-skybrand-50 text-skybrand-500 rounded-2xl flex items-center justify-center mx-auto mb-3 text-2xl shadow-inner">
+                    <i class="fa-solid fa-user-shield"></i>
+                </div>
+                <h1 class="text-2xl font-extrabold text-slate-900">Area Riservata Pazienti</h1>
+                <p class="text-xs text-slate-500 mt-1">Crea il tuo profilo sanitario per prenotare visite e conservare referti in sicurezza</p>
+            </div>
+
+            <form id="patient-signup-form" class="space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1">Nome</label>
+                        <input type="text" id="patient-first-name" required placeholder="Mario" class="w-full border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-skybrand-200 focus:border-skybrand-400 transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1">Cognome</label>
+                        <input type="text" id="patient-last-name" required placeholder="Rossi" class="w-full border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-skybrand-200 focus:border-skybrand-400 transition">
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1">Codice Fiscale</label>
+                        <input type="text" id="patient-cf" required placeholder="RSSMRA80A01H501U" class="w-full border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm bg-slate-50/50 uppercase focus:outline-none focus:ring-2 focus:ring-skybrand-200 focus:border-skybrand-400 transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1">Recapito Telefonico</label>
+                        <input type="tel" id="patient-phone" required placeholder="+39 333 1234567" class="w-full border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-skybrand-200 focus:border-skybrand-400 transition">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1">Posta Elettronica (Email)</label>
+                    <input type="email" id="patient-email" required placeholder="mario.rossi@email.it" class="w-full border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-skybrand-200 focus:border-skybrand-400 transition">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1">Password di Sicurezza</label>
+                    <input type="password" id="patient-password" required placeholder="Minimo 8 caratteri" class="w-full border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-skybrand-200 focus:border-skybrand-400 transition">
+                </div>
+
+                <div class="pt-2">
+                    <label class="flex items-start gap-2.5 text-xs text-slate-600 cursor-pointer">
+                        <input type="checkbox" required class="mt-0.5 rounded border-slate-300 text-skybrand-500 focus:ring-skybrand-400">
+                        <span>Autorizzo il trattamento dei dati personali ai sensi del GDPR (UE 2016/679) per finalità sanitarie e di prenotazione visite.</span>
+                    </label>
+                </div>
+
+                <div class="pt-4">
+                    <button type="submit" class="w-full bg-skybrand-500 hover:bg-skybrand-600 text-white font-semibold py-3 rounded-xl transition shadow-md shadow-skybrand-500/20 text-sm">
+                        Registrati come Paziente
+                    </button>
+                </div>
+            </form>
+
+            <div class="mt-6 text-center text-xs text-slate-500 border-t border-slate-100 pt-4">
+                Hai già un account sanitario? <a href="index.html" class="text-skybrand-600 font-semibold hover:underline">Accedi dalla Home</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-slate-900 text-slate-500 text-xs py-6 text-center border-t border-slate-800">
+        &copy; 2026 - Pronto Click Dottore. Piattaforma Certificata per la Gestione Sanitaria.
+    </footer>
+
+    <script>
+        document.getElementById('patient-signup-form')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('patient-email').value;
+            const password = document.getElementById('patient-password').value;
+            const firstName = document.getElementById('patient-first-name').value;
+            const lastName = document.getElementById('patient-last-name').value;
+            const cf = document.getElementById('patient-cf').value;
+            const phone = document.getElementById('patient-phone').value;
+
+            try {
+                const { data, error } = await window.supabase.auth.signUp({
+                    email, password,
+                    options: { data: { role: 'paziente', first_name: firstName, last_name: lastName, fiscal_code: cf, phone: phone } }
+                });
+                if (error) throw error;
+                alert('Registrazione completata con successo! Controlla la tua email per confermare l\'account.');
+                window.location.href = 'index.html';
+            } catch (err) {
+                alert('Errore di registrazione: ' + err.message);
+            }
+        });
+    </script>
+</body>
+</html>
