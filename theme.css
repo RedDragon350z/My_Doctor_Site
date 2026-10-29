@@ -1,0 +1,79 @@
+/*
+ * Pronto Click Dottore - Tema scuro
+ * Si attiva con la classe "dark" su <html> (la gestisce theme.js).
+ * Rimappa le classi Tailwind già usate nel sito, comprese quelle generate da JavaScript.
+ */
+html.dark { color-scheme: dark; }
+
+html.theme-anim, html.theme-anim *, html.theme-anim *::before, html.theme-anim *::after {
+    transition: background-color .25s ease, color .25s ease, border-color .25s ease !important;
+}
+
+/* Pulsante di cambio tema */
+.theme-toggle { cursor: pointer; }
+.theme-toggle:focus-visible { outline: 2px solid #38bdf8; outline-offset: 2px; }
+
+/* ---------- Sfondi ---------- */
+html.dark body { background-color: #0b1220; color: #e2e8f0; }
+html.dark .bg-white { background-color: #111b2f; }
+html.dark .bg-slate-50 { background-color: #0b1220; }
+html.dark .bg-slate-50\/50 { background-color: rgba(11, 18, 32, .65); }
+html.dark .bg-slate-100 { background-color: #1a2640; }
+html.dark .hover\:bg-slate-50:hover { background-color: #162239; }
+html.dark .hero-bg { background: linear-gradient(135deg, #0c2a43 0%, #0f2237 50%, #0b1220 100%); }
+
+html.dark .from-skybrand-100 { --tw-gradient-from: #0c2a43 var(--tw-gradient-from-position); --tw-gradient-to: rgb(12 42 67 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+html.dark .to-skybrand-50 { --tw-gradient-to: #0f2237 var(--tw-gradient-to-position); }
+
+/* ---------- Testi ---------- */
+html.dark .text-slate-900,
+html.dark .text-slate-800 { color: #f1f5f9; }
+html.dark .text-slate-700 { color: #e2e8f0; }
+html.dark .text-slate-600 { color: #cbd5e1; }
+html.dark .text-slate-500 { color: #94a3b8; }
+html.dark .text-slate-400 { color: #8593a8; }
+html.dark .hover\:text-slate-700:hover,
+html.dark .hover\:text-slate-600:hover { color: #f1f5f9; }
+html.dark input::placeholder, html.dark textarea::placeholder { color: #64748b; }
+
+/* ---------- Bordi ---------- */
+html.dark .border-slate-100 { border-color: #1b2741; }
+html.dark .border-slate-200,
+html.dark .border-slate-200\/80,
+html.dark .border-slate-200\/60 { border-color: #25324d; }
+html.dark .border-slate-300 { border-color: #334462; }
+html.dark .divide-slate-100 > * + * { border-color: #1b2741; }
+
+/* ---------- Colore del marchio ---------- */
+html.dark .text-skybrand-500,
+html.dark .text-skybrand-600 { color: #38bdf8; }
+html.dark .text-skybrand-700 { color: #7dd3fc; }
+html.dark .hover\:text-skybrand-600:hover,
+html.dark .hover\:text-skybrand-700:hover { color: #7dd3fc; }
+html.dark .bg-skybrand-50 { background-color: rgba(56, 189, 248, .10); }
+html.dark .bg-skybrand-100 { background-color: rgba(56, 189, 248, .18); }
+html.dark .hover\:bg-skybrand-50:hover { background-color: rgba(56, 189, 248, .14); }
+html.dark .border-skybrand-200,
+html.dark .border-skybrand-300 { border-color: rgba(56, 189, 248, .35); }
+html.dark .hover\:border-skybrand-300:hover,
+html.dark .hover\:border-skybrand-400:hover { border-color: #38bdf8; }
+
+/* ---------- Stati (errore / ok / attenzione) ---------- */
+html.dark .bg-red-50 { background-color: rgba(239, 68, 68, .12); }
+html.dark .border-red-200 { border-color: rgba(239, 68, 68, .35); }
+html.dark .text-red-700 { color: #fca5a5; }
+html.dark .text-red-600, html.dark .hover\:text-red-700:hover { color: #f87171; }
+html.dark .bg-emerald-50 { background-color: rgba(16, 185, 129, .13); }
+html.dark .text-emerald-600 { color: #34d399; }
+html.dark .text-emerald-700 { color: #6ee7b7; }
+html.dark .bg-amber-50 { background-color: rgba(245, 158, 11, .13); }
+html.dark .text-amber-600 { color: #fbbf24; }
+
+/* ---------- Varie ---------- */
+html.dark .shadow-xl, html.dark .shadow-2xl, html.dark .shadow-sm, html.dark .shadow-md { --tw-shadow-color: rgba(0, 0, 0, .45); }
+html.dark header img[src$="logo.png"] { filter: brightness(1.2); }
+html.dark select option { background: #111b2f; color: #e2e8f0; }
+html.dark input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px #0b1220 inset;
+    -webkit-text-fill-color: #e2e8f0;
+}
